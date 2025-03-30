@@ -38,26 +38,26 @@ Gleichungssystem \( Ax = b \) eine Lösung besitzt, und berechnen Sie diese.
     \begin{align*}
         x & = \begin{pmatrix}
                   1 \\ 1 \\ \sqrt{2}
-              \end{pmatrix},                \\
-        u & = x - \frac{x_1}{|x_1|} \norm{x} e_1     \\
+              \end{pmatrix},                  \\
+        u & = x - \frac{x_1}{|x_1|} \norm{x} e_1 \\
           & = \begin{pmatrix}
                   1 \\ 1 \\ \sqrt{2}
               \end{pmatrix} - 2 \begin{pmatrix}
                                     1 \\ 0 \\ 0
-                                \end{pmatrix}, \\
-        v & = \frac{u}{\norm{u}}               \\
+                                \end{pmatrix},   \\
+        v & = \frac{u}{\norm{u}}                 \\
           & = \frac{1}{2} u.
     \end{align*}
 
     Für die erste Householder-Transformation ergibt sich:
     \begin{align*}
-        Q_1 & = I_3 - 2 v v^T                                                                              \\
-            & = I_3 - \frac{1}{2} u u^T                                                                    \\
+        Q_1 & = I_3 - 2 v v^T                                                                                \\
+            & = I_3 - \frac{1}{2} u u^T                                                                      \\
             & = I_3 - \frac{1}{2} \begin{bmatrix}
                                       1         & -1       & -\sqrt{2} \\
                                       -1        & 1        & \sqrt{2}  \\
                                       -\sqrt{2} & \sqrt{2} & 2
-                                  \end{bmatrix}                                         \\
+                                  \end{bmatrix}                                           \\
             & = \begin{bmatrix}
                     \frac{1}{2}         & \frac{1}{2}        & \frac{\sqrt{2}}{2}  \\
                     \frac{1}{2}         & \frac{1}{2}        & -\frac{\sqrt{2}}{2} \\
