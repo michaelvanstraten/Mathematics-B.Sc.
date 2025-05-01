@@ -43,9 +43,8 @@ $
     &= (1^q + 1^q)^(1 / q) \
     &= 2^(1 / q).
   $
-  Für $0 < q < 1$ gilt $2^(1/q) > 2$.
-  Wäre $norm(-)_(l^q)$ eine Norm, müsste wegen der
-  Dreiecksungleichung
+  Für $0 < q < 1$ gilt $2^(1 / q) > 2$. Wäre $norm(-)_(l^q)$ eine Norm, müsste
+  wegen der Dreiecksungleichung
   $
     norm(x)_(l^q) <= norm(e_1)_(l^q) + norm(e_2)_(l^q) = 2
   $
@@ -53,7 +52,7 @@ $
 
 + *Linke Ungleichung:*
   $
-    norm(x)_(l^2) = sqrt(sum_(i=1)^n abs(x_i)^2 )
+    norm(x)_(l^2) = sqrt(sum_(i=1)^n abs(x_i)^2)
     >= sqrt(abs(x_max)^2) = norm(x)_(l^infinity).
   $
   *Rechte Ungleichung:*
@@ -103,17 +102,17 @@ $
     <= (n dot abs(x_max)^p)^(1 / p)
     = n^(1 / p) dot abs(x_max).
   $
-  Wegen $lim_(p -> infinity) n^(1/p) = 1$ folgt durch
-  das Sandwich-Theorem
+  Wegen $lim_(p -> infinity) n^(1 / p) = 1$ folgt durch das Sandwich-Theorem
   $
     lim_(p -> infinity) norm(x)_(l^p)
     = abs(x_max)
     = norm(x)_(l^infinity).
   $
 
+#pagebreak()
+
 #exercise([10])[
-  Beweisen Sie, dass die Abbildung $f : RR^2 -> RR^2$
-  definiert durch
+  Beweisen Sie, dass die Abbildung $f : RR^2 -> RR^2$ definiert durch
   $
     f(x,y) := (x - y, x + y)
   $
@@ -151,8 +150,8 @@ $
 sodass
 $
   d_(l^infinity)(f(x), f(y))
-    &= norm(f(h))_(l^infinity) \
-    &= max{abs(h_1 - h_2), abs(h_1 + h_2)}. #h(1em) star
+  &= norm(f(h))_(l^infinity) \
+  &= max{abs(h_1 - h_2), abs(h_1 + h_2)}. #h(1em) star
 $
 
 Wir betrachten zwei Fälle.
@@ -181,6 +180,8 @@ $
   = d_(l^1)(x, y).
 $
 
+#pagebreak()
+
 #exercise([10])[
   Zeigen Sie, dass $d: RR^n times RR^n -> [0, infinity)$ definiert duch
   $
@@ -191,8 +192,8 @@ $
 
 Die Eigenschaften M1 (Definitheit) und M2 (Symmetrie) sind trivialerweise
 erfüllt, da sie direkt von der euklidischen Metrik vererbt werden. Für die
-Dreiecksungleichung (M3) betrachten wir zunächst eine hilfreiche Ungleichung
-für positive reelle Zahlen.
+Dreiecksungleichung (M3) betrachten wir zunächst eine hilfreiche Ungleichung für
+positive reelle Zahlen.
 
 Seien $x,y in RR^+_0$, dann gilt:
 $
@@ -200,7 +201,9 @@ $
   <=>& sqrt(x + y) <= sqrt(x) + sqrt(y).
 $
 
-Diese Ungleichung werden wir nun auf die Metrik anwenden. Seien $x,y,z in RR^n$ beliebig. Unter Verwendung der Dreiecksungleichung für $d_(#smallcaps[Euklid])$ und der soeben bewiesenen Ungleichung erhalten wir:
+Diese Ungleichung werden wir nun auf die Metrik anwenden. Seien $x,y,z in RR^n$
+beliebig. Unter Verwendung der Dreiecksungleichung für $d_(#smallcaps[Euklid])$
+und der soeben bewiesenen Ungleichung erhalten wir:
 
 $
   d(x,z) & = sqrt(d_(#smallcaps[Euklid])(x,z)) \
@@ -209,4 +212,5 @@ $
   & = d(x,y) + d(y,z)
 $
 
-Damit ist die Dreiecksungleichung für $d$ gezeigt und alle drei Metrikeigenschaften sind nachgewiesen.
+Damit ist die Dreiecksungleichung für $d$ gezeigt und alle drei
+Metrikeigenschaften sind nachgewiesen.
