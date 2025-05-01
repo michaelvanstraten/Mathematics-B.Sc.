@@ -9,8 +9,10 @@ Für alle $a, b in KK^n$ sei $a times.circle b := a b^H in KK^(n times n)$
 und $a dot b = a^H b in KK$.
 
 + Zeigen Sie für zwei Vektoren $a, b in KK^n$ und die $n$-dimensionale
-  Einheitsmatrix $I_n$ folgende Formel für die Determinante $det(I_n - a
-  times.circle b) = 1 - overline(a dot b)$.
+  Einheitsmatrix $I_n$ folgende Formel für die Determinante $det(
+    I_n - a
+    times.circle b
+  ) = 1 - overline(a dot b)$.
 
 + Folgern Sie eine Formel für $(I_n - a times.circle b)^(-1)$ sofern $a dot b !=
   1$.
@@ -110,8 +112,6 @@ Matrix-Vektor-Multiplikation $T b$.
       for i in range(1, n):
           A[i][i-1] = A[i][i-1] / A[i-1][i-1]
           A[i][i] = A[i][i] - A[i][i-1] * A[i-1][i]
-          if i + 1 < n:
-              A[i][i+1] = A[i][i+1] - A[i][i-1] * A[i-1][i+1]
   ```
 
 + *Matrix-Vektor-Multiplikation* $y = T\,b$
@@ -130,33 +130,32 @@ Matrix-Vektor-Multiplikation $T b$.
 
   Die Eliminationsschleife läuft $n-1$ Mal. Pro Schritt wird genau eine
   Division, eine Multiplikation und eine Subtraktion für die Hauptdiagonale
-  ausgeführt. Für alle bis auf den letzten Schritt kommt je eine weitere
-  Multiplikation und Subtraktion für die Nachbar­elemente hinzu. Damit gilt:
+  ausgeführt. Damit gilt:
 
   $
-    cal(O)_(*,\/)(n) &= underbrace((n-1),"Division") +
-    underbrace((n-1)+(n-2), "Multiplikationen") &&= 3n-4 \
-    cal(O)_(+,-)(n) &= (n-1) + (n-2) &&= 2n-3.
+    cal(O)_(*,\/)(n) &= underbrace((n-1), "Division") +
+    underbrace((n-1), "Multiplikationen") &&= 2n-2 \
+    cal(O)_(+,-)(n) &&&= n-1
   $
 
-  Obwohl beide Algorithmen dieselbe asymptotische Komplexität aufweisen,
-  benötigt die LU-Zerlegung in der Praxis deutlich mehr Divisionen. Betrachtet
-  man jedoch, dass in der LU-Zerlegung signifikant mehr Divisionen
-  durchgeführt werden und Divisionen auf modernen CPUs meist um einen Faktor
-  mehr CPU-Zyklen benötigen als Multiplikationen, ist anzunehmen, dass die
-  Matrix-Vektor-Multiplikation eine bessere praktische Laufzeit erzielt.
-
+  // Obwohl beide Algorithmen dieselbe asymptotische Komplexität aufweisen,
+  // benötigt die LU-Zerlegung in der Praxis deutlich mehr Divisionen. Betrachtet
+  // man jedoch, dass in der LU-Zerlegung signifikant mehr Divisionen
+  // durchgeführt werden und Divisionen auf modernen CPUs meist um einen Faktor
+  // mehr CPU-Zyklen benötigen als Multiplikationen, ist anzunehmen, dass die
+  // Matrix-Vektor-Multiplikation eine bessere praktische Laufzeit erzielt.
+  //
 == Aufgabe A1.3 (Gruppenabgabe) #h(1fr) _(4 Punkte)_
 
 Berechnen Sie die Eigenwerte der Tridiagonalmatrix
 $
   T = mat(
-      2, -1, , , ;
-      -1, 2, -1,,;
-      , dots.down, dots.down, dots.down,;
-      , , -1, 2, -1;
-      ,,,-1, 2
-    ) in RR^(N times N)
+    2, -1, , , ;
+    -1, 2, -1, , ;
+    , dots.down, dots.down, dots.down, ;
+    , , -1, 2, -1;
+    , , , -1, 2
+  ) in RR^(N times N)
 $
 
 Benutzen Sie dazu einen Ansatz mit Sinus- und Kosinusfunktionen für die
@@ -164,8 +163,8 @@ Eigenfunktionen.
 
 _Anmerkung:_ Diese Tridiagonalmatrix resultiert aus einer Diskretisierung
 der ODE $-y'' = λ y$ mittels zentraler Differenzen und liefert im Limes
-für Netzweiten $h = 1/(N+1) → 0$ die optimale Konstante $1/π$ in der
-Friedrichs-Ungleichung $norm(f)_(L^2(0,1)) ≤ 1/π norm(f')_(L^2(0,1))$
+für Netzweiten $h = 1 / (N+1) → 0$ die optimale Konstante $1 / π$ in der
+Friedrichs-Ungleichung $norm(f)_(L^2(0,1)) ≤ 1 / π norm(f')_(L^2(0,1))$
 für alle $f ∈ C^1[0,1]$ mit $f(0)=f(1)=0$.
 
 === _Lösung:_
@@ -189,5 +188,5 @@ $
 basierend auf en Randbedingungen das $c_2 = 0$ sowie
 $sqrt(lambda) = k pi$ sodass,
 $
-y_k (x) = c_1 sin(k pi x)
+  y_k (x) = c_1 sin(k pi x)
 $
