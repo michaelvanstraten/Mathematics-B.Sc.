@@ -11,8 +11,8 @@
         inside: 2.0cm,
       ),
       header: [
-        Analysis II\* #h(1fr) Michael van Straten \
-        *Lösungen*: #number. Übungsblatt \
+        Analysis II\* #h(1fr) Michael van Straten \ *Lösungen*: #number.
+        Übungsblatt \
         #block(above: 4pt, line(length: 100%, stroke: 0.5pt))
       ],
     )
@@ -28,13 +28,15 @@
 #let ex-counter = counter("exercise")
 #let exercise(points, body) = block(spacing: 0.65em)[
   #ex-counter.step()
-  *Übung #context ex-counter.display()* (#text(number-type: "old-style")[#points] Punkte).
+  *Übung #context ex-counter.display()* (#text(
+    number-type: "old-style",
+  )[#points] Punkte).
   #body
 ]
 
- #let csu = [#smallcaps[Cauchy]–#smallcaps[Schwarz]-Ungleichung]
+#let csu = [#smallcaps[Cauchy]–#smallcaps[Schwarz]-Ungleichung]
 
- #let scr(it) = text(
+#let scr(it) = text(
   features: ("ss01",),
   box($cal(it)$),
 )
