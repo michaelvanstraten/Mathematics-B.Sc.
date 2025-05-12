@@ -17,13 +17,16 @@
       ],
     )
     #set par(leading: 0.55em, justify: true)
-    #set text(font: "New Computer Modern", size: 10pt)
+    #set text(font: "New Computer Modern", size: 10pt, number-type: "old-style")
     #show heading: set block(above: 1.4em, below: 1em)
     #set enum(numbering: "(1.a)", indent: 1em)
     #set math.mat(delim: "[")
+    #show sym.lt.eq: $lt.eq.slant$
+    #show sym.gt.eq: $gt.eq.slant$
     #doc
   ]
 }
+
 
 #let ex-counter = counter("exercise")
 #let exercise(points, body) = block(spacing: 0.65em)[
@@ -40,3 +43,5 @@
   features: ("ss01",),
   box($cal(it)$),
 )
+
+#let distance = math.op("d")

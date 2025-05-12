@@ -2,11 +2,6 @@
 
 #show: problemset(2)
 
-#show sym.lt.eq: $lt.eq.slant$
-#show sym.gt.eq: $gt.eq.slant$
-
-#let distance = math.op("d")
-
 #exercise([10])[
   Sei $X$ ein metrischer Raum.
   + Sei $(x_n)$ eine Cauchy-Folge und $\(x_(n_k)\)$ eine konvergente Teilfolge.
