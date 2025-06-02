@@ -37,8 +37,6 @@
               git-hooks = git-hooks.lib.${system}.run {
                 src = ./.;
                 hooks = {
-                  # statix.enable = true;
-                  # chktex.enable = true;
                   nixfmt-rfc-style.enable = true;
                   latexindent = {
                     enable = true;
@@ -46,7 +44,6 @@
                       flags = "--local --silent --modifylinebreak --overwriteIfDifferent";
                     };
                   };
-                  lacheck.enable = false;
                   actionlint.enable = true;
                   prettier = {
                     enable = true;
