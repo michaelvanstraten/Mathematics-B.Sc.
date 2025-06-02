@@ -5,7 +5,9 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     git-hooks.url = "github:cachix/git-hooks.nix";
+    git-hooks.inputs.nixpkgs.follows = "nixpkgs";
     latix.url = "github:michaelvanstraten/latix";
+    latix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
