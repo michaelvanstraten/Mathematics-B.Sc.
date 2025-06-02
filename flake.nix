@@ -37,9 +37,9 @@
               git-hooks = git-hooks.lib.${system}.run {
                 src = ./.;
                 hooks = {
-                  # nixfmt-rfc-style.enable = true;
                   # statix.enable = true;
                   # chktex.enable = true;
+                  nixfmt-rfc-style.enable = true;
                   latexindent = {
                     enable = true;
                     settings = {
