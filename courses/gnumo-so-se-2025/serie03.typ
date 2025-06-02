@@ -17,7 +17,7 @@ _Beweis_
 
 + *Beweis via Induktion* \
 
-  Sei die equivalenz der Rekursion bereits für ein $n in NN$ definiert.
+  Sei die äquivalenz der Rekursion bereits für ein $n in NN$ bewiesen.
 
   Somit folgt
   $
