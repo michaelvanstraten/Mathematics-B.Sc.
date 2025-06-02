@@ -15,9 +15,9 @@
   $distance(x_n, x_(n_k)) < epsilon / 2$ und
   $distance(x_(n_k), x_infinity) < epsilon / 2$ gilt. Dann folgt:
   $
-    epsilon = epsilon / 2 + epsilon / 2 &> distance(x_n, x_(n_k)) +
-    distance(x_(n_k), x_infinity) \
-    &>= distance(x_n, x_infinity).
+    epsilon = epsilon / 2 + epsilon / 2 & > distance(x_n, x_(n_k)) +
+                                          distance(x_(n_k), x_infinity) \
+                                        & >= distance(x_n, x_infinity).
   $
   Dies zeigt, dass $x_n$ gegen $x_infinity$ konvergiert.
 
@@ -86,8 +86,8 @@
 + Sei $n in NN$ sowie $x in RR$. Dann folgt:
   $
     n f(x) & = underbrace(f(x) + ... + f(x), n"-mal") \
-    & = f\(underbrace(x + ... + x, n"-mal")\) \
-    & = f(n x).
+           & = f\(underbrace(x + ... + x, n"-mal")\)  \
+           & = f(n x).
   $
   Also ist $f$ homogen für Skalare in $NN$.
 

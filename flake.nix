@@ -55,6 +55,8 @@
                     };
                   };
                   trim-trailing-whitespace.enable = true;
+                  typstyle.enable = true;
+                  typstyle.args = [ "--wrap-text" ];
                 };
               };
             };

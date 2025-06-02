@@ -20,9 +20,12 @@
     #set text(font: "New Computer Modern", size: 10pt, number-type: "old-style")
     #show heading: set block(above: 1.4em, below: 1em)
     #set enum(numbering: "(1.a)", indent: 1em)
-    #set math.mat(delim: "[")
+    #set math.mat(delim: "(")
     #show sym.lt.eq: $lt.eq.slant$
     #show sym.gt.eq: $gt.eq.slant$
+    #show math.equation.where(block: true): eq => {
+      block(width: 100%, inset: 0pt, align(center, eq))
+    }
     #doc
   ]
 }
@@ -39,9 +42,6 @@
 
 #let csu = [#smallcaps[Cauchy]–#smallcaps[Schwarz]-Ungleichung]
 
-#let scr(it) = text(
-  features: ("ss01",),
-  box($cal(it)$),
-)
+#let scr(it) = text(features: ("ss01",), box($cal(it)$))
 
 #let distance = math.op("d")

@@ -4,23 +4,18 @@
     #matrikelnummer
   ]
 
-  let header = pad(
-      y: 1cm,
-    align(
-      center,
-      [
-        = Digitale Systeme SS2025 \
-        == Abgabe zu Hausaufgaben #number
-        #box[
-          #author("Fabian Kubala") #h(1fr)
-          #author("David S. Spyra", matrikelnummer: 633014) #h(1fr)
-          #author("Michael van Straten", matrikelnummer: 637986) #h(1fr)
-          #author("Steven C.H. Szobries", matrikelnummer: 630097)
-        ] \
-        #block(above: 1em, line(length: 100%, stroke: 0.5pt))
-      ],
-    ),
-  )
+  let header = pad(y: 1cm, align(center, [
+    = Digitale Systeme SS2025 \
+    == Abgabe zu Hausaufgaben #number
+    #box[
+      #author("Fabian Kubala") #h(1fr) #author(
+        "David S. Spyra",
+        matrikelnummer: 633014,
+      ) #h(1fr) #author("Michael van Straten", matrikelnummer: 637986) #h(1fr)
+      #author("Steven C.H. Szobries", matrikelnummer: 630097)
+    ] \
+    #block(above: 1em, line(length: 100%, stroke: 0.5pt))
+  ]))
 
   let margin = 2cm
 

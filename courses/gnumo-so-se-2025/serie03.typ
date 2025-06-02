@@ -7,10 +7,13 @@
 Die Čebyšev-Polynome (erster Art) $T_n$ sind definiert vermöge
 $T_n(x) = cos(n arccos(x))$ für $x in [-1, 1]$.
 
-+ Zeigen Sie die Rekursionsformel (und damit, dass die Čebyšev-Polynome tatsächlich algebraische Polynome sind)
-  $T_0(x) := 1, T_1(x) := x, T_(n+1)(x) := 2x T_n(x) - T_(n-1)(x)$ für $n = 1, 2, ...$
++ Zeigen Sie die Rekursionsformel (und damit, dass die Čebyšev-Polynome
+  tatsächlich algebraische Polynome sind)
+  $T_0(x) := 1, T_1(x) := x, T_(n+1)(x) := 2x T_n(x) - T_(n-1)(x)$ für
+  $n = 1, 2, ...$
 
-+ Zeigen Sie, dass sich die Čebyšev-Polynome für alle $n in NN_0$ darstellen lassen vermöge
++ Zeigen Sie, dass sich die Čebyšev-Polynome für alle $n in NN_0$ darstellen
+  lassen vermöge
   $T_n(x) = 1 / 2((x + sqrt(x^2 - 1))^n + (x - sqrt(x^2 - 1))^n)$.
 
 _Beweis_
@@ -32,14 +35,14 @@ _Beweis_
 
 + Wir definieren für $x = cos(theta)$:
   $
-    r_1 &= x + sqrt(x^2-1) = cos(theta) + i sin(theta) = e^(i theta) \
-    r_2 &= x - sqrt(x^2-1) = cos(theta) - i sin(theta) = e^(-i theta)
+    r_1 & = x + sqrt(x^2-1) = cos(theta) + i sin(theta) = e^(i theta)  \
+    r_2 & = x - sqrt(x^2-1) = cos(theta) - i sin(theta) = e^(-i theta)
   $
 
   Es folgt:
   $
-    r_1^n &= e^(i n theta) = cos(n theta) + i sin(n theta) \
-    r_2^n &= e^(-i n theta) = cos(n theta) - i sin(n theta)
+    r_1^n & = e^(i n theta) = cos(n theta) + i sin(n theta)  \
+    r_2^n & = e^(-i n theta) = cos(n theta) - i sin(n theta)
   $
 
   Durch Addition erhalten wir:

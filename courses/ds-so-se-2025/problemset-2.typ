@@ -7,37 +7,29 @@
   #matrikelnummer
 ]
 
-#pad(
-  y: 1cm,
-  align(
-    center,
-    [
-      = Digitale Systeme SS2025 \
-      == Abgabe zu Hausaufgaben 2
-      #box[
-        #author("Fabian Kubala") #h(1fr)
-        #author("David S. Spyra", matrikelnummer: 633014) #h(1fr)
-        #author("Michael van Straten", matrikelnummer: 637986) #h(1fr)
-        #author("Steven C.H. Szobries", matrikelnummer: 630097)
-      ] \
-      #block(above: 1em, line(length: 100%, stroke: 0.5pt))
-    ],
-  ),
-)
+#pad(y: 1cm, align(center, [
+  = Digitale Systeme SS2025 \
+  == Abgabe zu Hausaufgaben 2
+  #box[
+    #author("Fabian Kubala") #h(1fr) #author(
+      "David S. Spyra",
+      matrikelnummer: 633014,
+    ) #h(1fr) #author("Michael van Straten", matrikelnummer: 637986) #h(1fr)
+    #author("Steven C.H. Szobries", matrikelnummer: 630097)
+  ] \
+  #block(above: 1em, line(length: 100%, stroke: 0.5pt))
+]))
 
 
 #exercise([4])[
-  + Zeichnen Sie den Logikplan eines 3-bit Addierers auf Basis von Volladdierern auf Gatterebene.
-    Stellen Sie im Logikplan die Addition der Zahlen $x = 2$ und $y = 1$ dar.
+  + Zeichnen Sie den Logikplan eines 3-bit Addierers auf Basis von Volladdierern
+    auf Gatterebene. Stellen Sie im Logikplan die Addition der Zahlen $x = 2$
+    und $y = 1$ dar.
 
-    Verwenden Sie zur Erstellung des Logikplans circuitverse.org und richten Sie sich nach dieser Vorlage:
+    Verwenden Sie zur Erstellung des Logikplans circuitverse.org und richten Sie
+    sich nach dieser Vorlage:
 
-    #block(
-      width: 100%,
-      inset: 10pt,
-      stroke: 0.5pt,
-      radius: 4pt,
-    )[
+    #block(width: 100%, inset: 10pt, stroke: 0.5pt, radius: 4pt)[
       #align(center)[
         *3-bit Addierer*
 
@@ -45,23 +37,23 @@
       ]
     ]
 
-    Die gesamte Aufgabe gilt nur als gelöst, wenn das vorgegebene Entwicklungs-/Simulationswerkzeug verwendet wird.
+    Die gesamte Aufgabe gilt nur als gelöst, wenn das vorgegebene
+    Entwicklungs-/Simulationswerkzeug verwendet wird.
 
-  + Berechnen Sie die Zeit für die Generierung der Summe und des Übertrags der letzten Stelle eines, ebenfalls aus Volladdieren bestehenden, 4-bit-Addierers bei einer Gatterlaufzeit von 13 ns.
+  + Berechnen Sie die Zeit für die Generierung der Summe und des Übertrags der
+    letzten Stelle eines, ebenfalls aus Volladdieren bestehenden,
+    4-bit-Addierers bei einer Gatterlaufzeit von 13 ns.
 
-  + Geben Sie die Schaltfunktionen für die Überlaufbits $c_0$, $c_2$ und das Summenbit $s_3$ eines 4-Bit Carry-Look-Ahead-Addierers an.
+  + Geben Sie die Schaltfunktionen für die Überlaufbits $c_0$, $c_2$ und das
+    Summenbit $s_3$ eines 4-Bit Carry-Look-Ahead-Addierers an.
 ]
 
 *Lösung*
 
-+ Der Logikplan eines 3-bit Addierers besteht aus drei Volladdierern, die miteinander verbunden sind.
++ Der Logikplan eines 3-bit Addierers besteht aus drei Volladdierern, die
+  miteinander verbunden sind.
 
-  #block(
-    width: 100%,
-    inset: 10pt,
-    stroke: 0.5pt,
-    radius: 4pt,
-  )[
+  #block(width: 100%, inset: 10pt, stroke: 0.5pt, radius: 4pt)[
     #align(center)[
       *3-bit Addierer* - #link(
         "https://circuitverse.org/users/315587/projects/digitale-systeme-ss2025-hausaufgaben-2-1-gruppe-30",
@@ -72,8 +64,8 @@
 
 + Für die Berechung der Summer und des Übertrags für einen Volladdierer benötigt
   es genau jeweils zwei Gatterlaufzeiten. Für jeden weiteren Volladierer kommen
-  somit zwei weitere Gatterlaufzeiten hinzu. Für denn fall einees 4-bit-Addierers
-  mit einer Gatterlaufzeit von 13 ns kommen wir somit auf
+  somit zwei weitere Gatterlaufzeiten hinzu. Für denn fall einees
+  4-bit-Addierers mit einer Gatterlaufzeit von 13 ns kommen wir somit auf
   $
     4 dot (13"ns"+ 13"ns") = 104"ns"
   $
