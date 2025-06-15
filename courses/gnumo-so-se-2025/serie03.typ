@@ -36,13 +36,13 @@ _Beweis_
 + Wir definieren für $x = cos(theta)$:
   $
     r_1 & = x + sqrt(x^2-1) = cos(theta) + i sin(theta) = e^(i theta)  \
-    r_2 & = x - sqrt(x^2-1) = cos(theta) - i sin(theta) = e^(-i theta)
+    r_2 & = x - sqrt(x^2-1) = cos(theta) - i sin(theta) = e^(-i theta) \
   $
 
   Es folgt:
   $
     r_1^n & = e^(i n theta) = cos(n theta) + i sin(n theta)  \
-    r_2^n & = e^(-i n theta) = cos(n theta) - i sin(n theta)
+    r_2^n & = e^(-i n theta) = cos(n theta) - i sin(n theta) \
   $
 
   Durch Addition erhalten wir:

@@ -40,7 +40,7 @@ $
   $
     norm(x)_(l^q) & = (sum_(i=1)^n abs(x_i)^q)^(1 / q) \
                   & = (1^q + 1^q)^(1 / q)              \
-                  & = 2^(1 / q).
+                  & = 2^(1 / q).                       \
   $
   Für $0 < q < 1$ gilt $2^(1 / q) > 2$. Wäre $norm(-)_(l^q)$ eine Norm, müsste
   wegen der Dreiecksungleichung
@@ -61,7 +61,7 @@ $
                     & = sum_(i,j=1)^n abs(x_i) abs(x_j)                           \
                     & = sum_(i=1)^n abs(x_i)^2 +
                       underbrace(sum_(1 <= i < j <= n)^n abs(x_i) abs(x_j), >= 0) \
-                    & >= norm(x)_(l^2)^2.
+                    & >= norm(x)_(l^2)^2.                                         \
   $
   Also
   $
@@ -197,7 +197,7 @@ positive reelle Zahlen.
 Seien $x,y in RR^+_0$, dann gilt:
 $
       & x + y <= x + 2 sqrt(x) sqrt(y) + y = (sqrt(x) + sqrt(y))^2 \
-  <=> & sqrt(x + y) <= sqrt(x) + sqrt(y).
+  <=> & sqrt(x + y) <= sqrt(x) + sqrt(y).                          \
 $
 
 Diese Ungleichung werden wir nun auf die Metrik anwenden. Seien $x,y,z in RR^n$

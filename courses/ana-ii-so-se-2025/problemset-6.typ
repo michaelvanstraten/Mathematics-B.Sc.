@@ -125,10 +125,10 @@ absolut konvergiert.
 
   Sei die aussage nun für ein $n in NN$ bewiesen so folgt
   $
-    (a+b)^(n+1) & = (a+b)^n dot (a+b) \
-    & = [a^n + T_a p_n (b) + R_a (b)] dot (a + b) \
-    & = a^(n+1) + a^n dot b + T_a p_n (b) dot a + T_a p_n (b) dot b + R_a (b)
-    dot (a + b).
+    (a+b)^(n+1) & = (a+b)^n dot (a+b)                         \
+                & = [a^n + T_a p_n (b) + R_a (b)] dot (a + b) \
+                & = a^(n+1) + a^n dot b + T_a p_n (b) dot a + T_a p_n (b) dot b + R_a (b)
+                  dot (a + b).                                \
   $
   Da $T_a p_k (b)$ linear in $b$ ist, ist $T_a p_k (b) dot b$ quadratisch in
   $b$. Gleiches gilt für $R_a (b) dot (a + b)$. Somit folgt

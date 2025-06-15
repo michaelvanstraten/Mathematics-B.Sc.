@@ -33,7 +33,7 @@ $a dot b = a^H b in KK$.
                    & = I - b^H a                                        \
                    & = I - angle.l b, a angle.r_"Standard"              \
                    & = I - overline(angle.l a\, b angle.r)_"Standard"   \
-                   & = I - overline(a dot b)
+                   & = I - overline(a dot b)                            \
   $
 
 + Siehe (c).
@@ -56,7 +56,7 @@ $a dot b = a^H b in KK$.
         & A x - b times.circle c x && = y                                           \
     <=> & A x                      && = y + b times.circle c x                      \
     <=> & x                        && = A^(-1) y + A^(-1) b times.circle c x        \
-        &                          && = A^(-1) y + A^(-1) b underbrace(c^H x, =: s)
+        &                          && = A^(-1) y + A^(-1) b underbrace(c^H x, =: s) \
   $
 
   Bezeichnen wir $s in KK$ und stellen nun nach $s$ um, so folgt
@@ -65,7 +65,7 @@ $a dot b = a^H b in KK$.
         & s = c^H x            && = c^H A^(-1) y + c^H A^(-1) b s       \
     <=> & s + c^H A^(-1) b s   && = c^H A^(-1) y                        \
     <=> & (1 + c^H A^(-1) b) s && = c^H A^(-1) y                        \
-    <=> & s                    && = (c^H A^(-1) y) / (1 + c^H A^(-1) b)
+    <=> & s                    && = (c^H A^(-1) y) / (1 + c^H A^(-1) b) \
   $
 
   Setzen wir nun $s$ wieder ein, erhalten wir:
@@ -73,7 +73,7 @@ $a dot b = a^H b in KK$.
   $
     x & = A^(-1) y + A^(-1) b (c^H A^(-1) y) / (1 + c^H A^(-1) b) \
       & = A^(-1) y + (A^(-1) b c^H A^(-1) y) / (1 + c^H A^(-1) b) \
-      & = (A^(-1) + (A^(-1) b c^H A^(-1)) / (1 + c^H A^(-1) b)) y
+      & = (A^(-1) + (A^(-1) b c^H A^(-1)) / (1 + c^H A^(-1) b)) y \
   $
 
 
@@ -119,7 +119,7 @@ Matrix-Vektor-Multiplikation $T b$.
   Multiplikation und eine Addition für Unter- bzw. Überdiagonale. Insgesamt:
   $
     cal(O)_(*,\/)(n) & = 2(n-1) + (n-1) && = 3n-2  \
-     cal(O)_(+,-)(n) & = (n-1) + (n-1)  && = 2n-2.
+     cal(O)_(+,-)(n) & = (n-1) + (n-1)  && = 2n-2. \
   $
 
   *In-Place LU*
@@ -131,7 +131,7 @@ Matrix-Vektor-Multiplikation $T b$.
   $
     cal(O)_(*,\/)(n) & = underbrace((n-1), "Division") +
                        underbrace((n-1), "Multiplikationen") && = 2n-2 \
-     cal(O)_(+,-)(n) &                                       && = n-1
+     cal(O)_(+,-)(n) &                                       && = n-1  \
   $
 
 // Obwohl beide Algorithmen dieselbe asymptotische Komplexität aufweisen,
