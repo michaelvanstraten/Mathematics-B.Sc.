@@ -1,0 +1,720 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+\usepackage{pgfpages}
+\setbeameroption{show notes on second screen=right}
+}
+
+\usepackage{color}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\setmonofont{JetBrainsMono Nerd Font}
+
+% Lean syntax highlighting
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+\def\lstlanguagefiles{lstlean.tex}
+
+\lstset{
+    language=lean,
+    basicstyle=\ttfamily\tiny,
+    inputpath={./code-examples/}
+}
+
+\setbeameroption{show notes on second screen=right}
+
+\graphicspath{{./assets/images/}{./assets/memes/}}
+
+\title{Metaprogramming in Lean 4}
+\author{Michael van Straten}
+\date{\today}
+\institute{Humboldt-Universität zu Berlin}
+
+\AtBeginSection[]{
+    \tableofcontents[currentsection]
+}
+
+\begin{document}
+
+\NoHyper
+
+\begin{frame}{About Me}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}[<+(0)->]
+                \item Hi, my name is Michael
+                \item I am currently in the 4th semester of my Bachelor's
+                      degree in Mathematics
+                \item I like to spend my time writing open source software in
+                      Rust, but I mostly spend it writing legacy C++ code :-).
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+                \begin{tikzpicture}
+                    \clip (0,0) circle (0.4\textwidth) node {
+                            \includegraphics[width=0.8\textwidth]{profile-picture.jpg}
+                        };
+                \end{tikzpicture}
+            \end{center}
+        \end{column}
+    \end{columns}
+
+    \note<1>[item]{I think you can do this without notes}
+\end{frame}
+
+\begin{frame}
+    \titlepage
+    \note<1>[item]{
+        I would like to talk to you about Metaprogramming in Lean4 today. But
+        before I would like to thank the Lean Prover community since this talk is
+        largely based on the Metaprogramming in Lean4 book which. The book was a
+        great resource to get started on and I can now say that I a much better
+        understanding of some of the internals of lean.
+    }
+\end{frame}
+
+\section{Introduction and Overview}
+
+\begin{frame}{What is the goal of this talk?}
+    \begin{itemize}[<+->]
+        \item Gain insight into how Lean works from an imperative programming
+              perspective
+        \item Introduce fundamentals of Lean metaprogramming
+        \item Understand how Lean's syntax is parsed, elaborated, and
+              type-checked
+        \item Explore the type theoretical background implementation
+        \item Learn how to write your own syntax, macros, and tactics
+    \end{itemize}
+
+    \note<1>[item]{I had some difficulties understanding the Lean syntax when
+        initially looking at Lean code online. I wanted to understand what a
+        concrete expression really meant, which is why I wanted to challenge myself
+        to do this talk.}
+    \note<1>[item]{Almost everything in Lean is accomplished through metaprogramming,
+        which can be challenging to someone coming from a more imperative programming
+        background.}
+    \note<2,3>[item]{To address this, I will introduce you to the
+        fundamentals of Lean metaprogramming. By the end of this talk, you should
+        understand how Lean's expressive syntax is parsed, elaborated, and
+        type-checked.}
+    \note<4>[item]{You can view this as a practical application and extension of
+        the previous talk, in which we will explore how the type theoretical
+        background is implemented.}
+    \note<5>[item]{By the end, you'll be able to extend Lean with your own domain-specific languages.}
+\end{frame}
+
+\begin{frame}{Disclaimer}
+    \begin{itemize}[<+->]
+        \item \textbf{Warning:} Metaprogramming in Lean is an \emph{immense} topic
+        \item This 1-hour talk only scratches the surface
+        \item We'll focus on core concepts: Syntax, Macros, Elaboration,
+              Tactics
+        \item \textbf{Read the book:} "Metaprogramming in Lean 4" for the full story
+    \end{itemize}
+
+    \note<1>[item]{I want to set realistic expectations - metaprogramming in Lean is incredibly deep.}
+    \note<2>[item]{We're covering the essentials in 60 minutes, but there's so much more.}
+    % Name them
+    \note<3>[item]{These are the core concepts you need to understand how Lean works.}
+    \note<4>[item]{Think of this as your entry point - enough to get started and know what to learn next.}
+    \note<4>[item]{The Metaprogramming in Lean 4 book is freely available online and goes much deeper.}
+\end{frame}
+
+\begin{frame}{About Monads in This Talk}
+    \includegraphics[width=0.8\textwidth]{about-monads-in-this-talk.png}
+
+    \begin{itemize}[<+->]
+        \item You'll see monads like \lstinline{MetaM}, \lstinline{TacticM},
+              \lstinline{MacroM}
+        \item \textbf{What we won't cover monads :(}
+              \begin{itemize}
+                  \item We need monads to manage state (environment,
+                        metavariables, local context) between pure function
+                        calls
+                  \item But I won't define what a monad is — that's a whole
+                        other talk probably!
+              \end{itemize}
+    \end{itemize}
+
+    \note<1>[item]{We'll use monads throughout but won't explain the theory behind them.}
+    \note<2>[item]{For practical purposes, think of them as execution contexts with specific capabilities.}
+    \note<2>[item]{The theory of monads is beautiful but would take too long to explain properly!}
+\end{frame}
+
+\begin{frame}[fragile]{What does it mean to be in meta?}
+    \begin{itemize}[<+->]
+        \item Most programming languages have fixed syntax
+        \item Lean is different - almost no predefined syntax
+        \item Everything is defined like regular definitions
+        \item Example: rewriting \lstinline{if then else} behavior
+              \lstinputlisting{basic/rewrite-if-then-else.lean}
+        \item We manipulate Lean's CST (Concrete Syntax Tree) and AST (Abstract
+              Syntax Tree)
+        \item This is essential for writing tactics
+    \end{itemize}
+
+    \note<1>[item]{In most common programming languages like Python, C++, or Java,
+        you usually have to stick to a pre-defined syntax; otherwise, the compiler
+        (the thing that turns your source files into something computable) won't
+        be able to understand what you are saying.}
+    \note<2>[item]{In Lean, this is very different. There is in fact almost no
+        predefined syntax. Everything you commonly see is basically defined in the
+        same way you write a definition in a file.}
+    \note<3>[item]{For example, the following code rewrites the meaning of if-then-else
+        to flip the two conditions.}
+    \note<6>[item]{We will frequently want to directly manipulate Lean's Concrete
+        Syntax Tree and Lean's Abstract Syntax Tree (Lean's Expr type) instead of
+        using "normal Lean code", especially when we're writing tactics. A large
+        chunk of this talk is devoted to studying these types and how we can
+        manipulate them.}
+\end{frame}
+
+\section{The Lean Compilation Pipeline}
+
+\begin{frame}[fragile]{Lean Compilation Process}
+    \begin{center}
+        \includegraphics[width=\textwidth]{lean-compilation-procees.png}
+    \end{center}
+
+    \vspace{0.5cm}
+
+    \begin{itemize}[<+->]
+        \item Lean operates on two main types: \lstinline{Syntax} and
+              \lstinline{Expr}
+        \item Four-step process: Parsing → Macro Expansion → Elaboration →
+              Evaluation
+        \item Process is repeated for each top level command in a file
+    \end{itemize}
+
+    % Eplain with parsing the header (the imports and then the top level command)
+    \note<1>[item]{As a 10000-foot overview of how Lean works: Lean will internally
+        act on two main types - the Syntax and Expr types.}
+    \note<1>[item]{You have actually seen an external representation of the Expr
+        type in the previous talk.}
+    \note<2>[item]{Step 1: Parser reads source code and builds Syntax trees using parser tables
+        that contain rules from syntax declarations.}
+    \note<2>[item]{Step 2: Macro expansion repeatedly applies macro transformations
+        (Syntax → Syntax functions) until no more macros can be applied.}
+    \note<2>[item]{Step 3: Elaboration converts the final Syntax trees into Expr trees,
+        performing type inference, implicit argument insertion, and overload resolution.}
+    \note<2>[item]{Step 4: The kernel type-checks Expr trees and they can be evaluated
+        or compiled to executable code.}
+    \note<3>[item]{This pipeline is run multiple times for each top level
+        command in a lean file.}
+\end{frame}
+
+\begin{frame}[fragile]{A Concrete Example}
+    \lstinputlisting{basic/transitive-command-elab.lean}
+
+    \note<1>[item]{Let me walk through this example step by step to show how syntax flows through the compilation pipeline.}
+    \note<1>[item]{Lines 1-2: We import Lean and open the Command elaboration namespace.}
+    \note<1>[item]{Lines 4-6: We declare three syntax rules - "red", "green", "blue" - as commands, each pointing to elaborator names xxx, yyy, zzz.}
+    \note<1>[item]{Lines 8-14: We define macros that transform syntax. The redMacro transforms xxx into green syntax, and greenMacro transforms yyy into blue syntax.}
+    \note<1>[item]{Lines 16-17: We define a command elaborator for zzz that prints "finally, blue!" when executed.}
+    \note<1>[item]{Line 19: When Lean sees "red", it follows the chain: red → xxx → green → yyy → blue → zzz → print message.}
+\end{frame}
+
+\begin{frame}{From Text to Syntax Trees}
+    \begin{itemize}[<+(1)->]
+        \item Lean starts by parsing source code into \lstinline{Syntax}
+              objects
+        \item The parser follows rules defined by \lstinline{syntax}
+              declarations
+        \item Each \lstinline{syntax} commadn adds a rule
+        \item The result is a concrete syntax tree (CST) representing your code
+        \item This tree preserves all information: operators, precedence,
+              structure
+    \end{itemize}
+
+    \note<1>[item]{Before we dive into the Syntax type, let's understand what parsing does.}
+    \note<2>[item]{Lean starts by parsing source code into \lstinline{Syntax} objects}
+    \note<3>[item]{Lean has a table-driven parser that looks up syntax rules as it encounters tokens.}
+    \note<4>[item]{Every syntax declaration we write adds new rules to this parser table.}
+    \note<5>[item]{The parser builds as a result a concrete syntax tree that maintains the exact structure of your source code.}
+    \note<6>[item]{Unlike abstract syntax trees, CSTs preserve formatting, comments, and other source-level details.}
+\end{frame}
+
+\section{Syntax Parsing}
+
+\begin{frame}[fragile]{The Syntax Type}
+    \begin{itemize}[<+->]
+        \item \lstinline{Lean.Syntax} is an inductive type representing parsed code
+        \item Four main constructors represent different syntax elements:
+        \item \lstinline{missing}: Used for syntax errors and recovery
+        \item \lstinline{node}: Tree nodes with kind and children
+        \item \lstinline{atom}: String literals (operators, keywords)
+        \item \lstinline{ident}: Identifiers with Lean.Name
+    \end{itemize}
+
+    \lstinputlisting{basic/syntax-type.lean}
+
+    \note<1>[item]{Syntax is the fundamental type for representing parsed code in Lean.}
+    \note<2>[item]{These four constructors can represent any piece of Lean
+        syntax, namely \lstinline{missing}, \lstinline{node}, \lstinline{atom} and
+    \lstinline{ident}.}
+    \note<3>[item]{missing is used when the parser encounters an error but recovers to continue parsing.}
+    \note<4>[item]{node represents syntax tree nodes with a kind (like \lstinline{term_+_}) and child syntax elements.}
+    \note<5>[item]{atom represents terminal symbols like operators, keywords, and literals.}
+    \note<6>[item]{ident is special - it uses Lean.Name instead of String for hygiene reasons.}
+\end{frame}
+
+\begin{frame}[fragile]{Inspecting Syntax}
+    \lstinputlisting{basic/inspecting-syntax.lean}
+
+    \note<1>[item]{We can introspect the parsed Syntax for any given term in lean using this
+        code snippet. The output shows the complete tree structure, including source information
+        and the hierarchical relationship between different syntax elements.}
+
+    \note<1>[item]{We can introspect the parsed Syntax for any given term in lean using this
+        code snippet. The output shows the complete tree structure, including source information
+        and the hierarchical relationship between different syntax elements.}
+
+    \note<1>[item]{You migth wander what the \lstinline{term} after the colon in
+        the syntax command means. It is something called a syntax category.}
+\end{frame}
+
+\begin{frame}[fragile]{Syntax Categories}
+    \begin{itemize}[<+->]
+        \item Syntax categories group related parser rules together
+        \item Each \lstinline{syntax} command adds a rule to a category
+        \item Built-in categories: \lstinline{term}, \lstinline{command},
+              \lstinline{tactic}
+        \item Create custom categories with \lstinline{declare_syntax_cat}
+        \item Categories enable domain-specific languages within Lean
+    \end{itemize}
+
+    \lstinputlisting{basic/syntax-cat.lean}
+
+    \note<1>[item]{Think of syntax categories as grammar non-terminals that group related parsing rules.}
+    \note<2>[item]{When you write a syntax command, you're adding a new production rule to that category's grammar.}
+    \note<3>[item]{Lean comes with essential categories like term (expressions with values) and command (top-level declarations).}
+    \note<4>[item]{Custom categories let you create mini-languages. Here we create an arithmetic expression language.}
+    \note<5>[item]{The arith category only accepts numbers, +, -, and parentheses - nothing else. This gives us precise control over what syntax is allowed.}
+\end{frame}
+
+\begin{frame}[fragile]{Predefined Syntax: Infix and Notation}
+    \begin{itemize}[<+(1)->]
+        \item \lstinline{infix}, \lstinline{infixl}, \lstinline{infixr} for binary operators
+        \item \lstinline{notation} for flexible mixfix syntax
+        \item Precedence controls operator binding strength
+        \item Associativity determines parsing of chains
+        \item These are syntax sugar for \lstinline{syntax} + \lstinline{macro}
+    \end{itemize}
+
+    \lstinputlisting{basic/predefined-notation.lean}
+
+    \note<1>[item]{Before into more custom syntax, let's see Lean's convenient shortcuts for common patterns.}
+    \note<2>[item]{infixl creates left-associative operators, infixr creates right-associative ones.}
+    \note<3>[item]{notation is more flexible - you can put parameters anywhere in the syntax.}
+    \note<4>[item]{These examples come directly from Lean's initialization code in Init/Notation.lean.}
+    \note<5>[item]{Notice how precedence numbers determine parsing: \lstinline{&&} (35) binds tighter than \lstinline{||} (30).}
+    \note<6>[item]{The \lstinline{::} operator is right-associative
+        (\lstinline{infixr}), perfect for building lists from left to right.}
+\end{frame}
+
+\section{Macros}
+
+\begin{frame}[fragile]{What are Macros?}
+    \begin{itemize}[<+->]
+        \item Macros are \lstinline{Syntax → MacroM Syntax} functions
+        \item Registered with \lstinline{@[macro name]}
+        \item Compiler will apply the macro to the syntax for us
+    \end{itemize}
+
+    \lstinputlisting[lastline=14]{macros/basic-macro.lean}
+
+    \note<1>[item]{Macros in Lean are \lstinline{Syntax → MacroM Syntax} functions. \lstinline{MacroM} is the macro
+    monad which allows macros to have some static guarenties about your code, you can mostly ignore it for now.}
+    \note<2>[item]{Macros are registered as handlers for a specific syntax declaration using the
+        \lstinline{macro} attribute.}
+    \note<3>[item]{The compiler will take care of applying these function
+        to the syntax for us before performing actual analysis of the input.}
+    \note<3>[item]{This
+        means that the only thing we have to do is declare our syntax with a specific
+        name and bind a function of type \lstinline{Lean.Macro} to it. Let's try to reproduce
+        the \lstinline{LXOR} notation from the \lstinline{Syntax} chapter:}
+\end{frame}
+
+\begin{frame}[fragile]{Multiple Macros for Same Syntax}
+    \begin{itemize}[<+->]
+        \item Can register multiple macros for the same syntax
+        \item Tried in reverse registration order (later = higher priority)
+        \item Continue until success or real error
+        \item Use \lstinline{Macro.throwUnsupported} to pass to next macro
+    \end{itemize}
+
+    \lstinputlisting[firstline=16,lastline=23]{macros/basic-macro.lean}
+
+    \note<1>[item]{Lean allows multiple macros to handle the same syntax pattern.
+        This enables sophisticated pattern matching and fallback behavior.}
+    \note<2>[item]{The newer macro takes precedence, creating a specialized handler
+        for the specific case of \lstinline{true LXOR true}.}
+    \note<3>[item]{This demonstrates the power of Lean's macro system but should
+        be used carefully to avoid confusing behavior.}
+\end{frame}
+
+\begin{frame}[fragile]{Macro Limitations and Best Practices}
+    \begin{itemize}[<+->]
+        \item Macros work on syntax structure, not semantic meaning
+        \item Can lead to surprising behavior with different identifiers
+        \item Use macros for simple syntax transformations
+        \item Complex logic should use elaborators instead
+        \item Keep transformations predictable and intuitive
+    \end{itemize}
+
+    \lstinputlisting[firstline=25,lastline=28]{macros/basic-macro.lean}
+
+    \note<1>[item]{This example shows a potential pitfall - the macro only recognizes
+        the literal identifiers \lstinline{true}, not variables containing true.}
+    \note<2>[item]{The rule of thumb: if you're building real logic rather than
+        simple syntax translation, use elaborators instead of macros.}
+    \note<3>[item]{Macros should be transparent transformations that a human
+        could easily perform manually.}
+\end{frame}
+
+\begin{frame}[fragile]{Simplifying Macro Declaration}
+    \begin{itemize}[<+->]
+        \item \lstinline{macro_rules} provides syntactic sugar for common patterns
+        \item \lstinline{macro} offers even more concise syntax for simple cases
+        \item These conveniences automatically handle registration and error
+              handling
+    \end{itemize}
+
+    \lstinputlisting{macros/macro-sugar.lean}
+
+    \note<1>[item]{Now that we know the basics of what a macro is and how to register it,
+        we can explore more automated approaches. In fact, all the techniques we're about
+        to see are implemented as macros themselves.}
+    \note<2>[item]{\lstinline{macro_rules} desugars to functions like the ones we wrote manually.
+        It automatically figures out the syntax name, handles the \lstinline{macro} attribute
+        registration, and provides the \lstinline{throwUnsupported} wildcard behavior.}
+    \note<3>[item]{The \lstinline{macro} syntax is even more concise and perfect for simple
+        transformations that don't require complex logic. It combines syntax declaration
+        and macro definition in one step.}
+    \note<4>[item]{These pattern-matching approaches work like functions with guards,
+        allowing arbitrarily complex macro logic on the right-hand side.}
+\end{frame}
+
+\subsection{Building a Set Languages with Macros}
+
+\begin{frame}[fragile]{Defining basic set logic}
+    \lstinputlisting[lastline=11]{macros/set-comprehensions.lean}
+
+    \note<1>[item]{As a final mini project for this section we will build syntax
+        for working with sets, using a macro this time so we can actually fully integrate it into the Lean syntax.}
+    \note<2>[item]{Lets define the basics of sets}
+\end{frame}
+
+\begin{frame}[fragile]{Design Approach for Set Comprehensions}
+    \begin{itemize}[<+->]
+        \item \textbf{Goal:} Support both \lstinline{x : X | p x} and
+              \lstinline{x ∈ X, p x} notations
+        \item Two possible approaches:
+              \begin{enumerate}
+                  \item Define separate syntax and macro for each binding style
+                  \item Define reusable syntax category for binders
+              \end{enumerate}
+        \item \textbf{We choose approach 2} for reusability across other constructs
+    \end{itemize}
+
+    \note<1>[item]{The goal is to support both traditional set-builder notation with type annotations and the more concise membership-based notation.}
+    \note<2>[item]{We could create separate syntax for each, but that would lead to duplication when we want similar patterns elsewhere.}
+    \note<3>[item]{By creating a reusable binder construct category, we can extend this pattern to other mathematical constructs that bind variables.}
+\end{frame}
+
+\begin{frame}[fragile]{Declaring Syntax Categories and Macro}
+    \lstinputlisting[firstline=12,lastline=22]{macros/set-comprehensions.lean}
+
+    \note<1>[item]{Syntax categories allow us to define a class of syntax rules that can be used interchangeably in specific contexts.}
+    \note<2>[item]{The \lstinline{binder_construct} category will contain different ways to bind variables in our set comprehensions.}
+    \note<3>[item]{The main syntax rule creates the familiar set comprehension structure with the vertical bar separator.}
+\end{frame}
+
+\begin{frame}[fragile]{Set Comprehensions in Action}
+    \lstinputlisting[firstline=23,lastline=33]{macros/set-comprehensions.lean}
+
+    \begin{itemize}[<+->]
+        \item Define a simple set: \lstinline{oneSet} contains only the number
+              1
+        \item Create a set comprehension: \lstinline{x ∈ oneSet | 10 ≤ x}
+        \item This expands to a logical contradiction (empty set)
+        \item The proof demonstrates the macro's semantic correctness
+    \end{itemize}
+
+    \note<1>[item]{This example shows the macro system working end-to-end with actual mathematical reasoning.}
+    \note<2>[item]{The set comprehension creates an impossible condition - no element can be both equal to 1 and greater than or equal to 10.}
+    \note<3>[item]{The proof by contradiction shows that our macro expansion preserves the intended logical meaning.}
+\end{frame}
+
+\section{Elaborationd}
+
+\begin{frame}[fragile]{The Bridge from Syntax to Lambda Calculus}
+    \begin{itemize}[<+->]
+        \item After macro expansion, we have \lstinline{Syntax} trees
+        \item But syntax trees don't have meaning in the typed lambda calculus
+              yet
+        \item \textbf{Elaboration} converts syntax to meaningful expressions
+        \item This is where type inference, implicit arguments, and overload
+              resolution happen
+        \item The result: \lstinline{Expr} trees ready for the kernel
+    \end{itemize}
+
+    \note<1>[item]{Macros give us powerful syntax transformations, but we're still just manipulating trees of tokens.}
+    \note<2>[item]{Syntax doesn't know about types, definitions, or mathematical meaning in the typed lambda calculus.}
+    \note<3>[item]{Elaboration is the bridge that gives semantic meaning to syntax.}
+    \note<4>[item]{This is where the "magic" happens - types are inferred, holes are filled, ambiguities resolved.}
+    \note<5>[item]{The output is expressions that the kernel can verify and evaluate.}
+\end{frame}
+
+\begin{frame}[fragile]{What is Elaboration?}
+    \begin{itemize}[<+->]
+        \item Two main types: Command and Term elaboration
+        \item \textbf{Command elaboration}: Processes top-level declarations, modifies environment
+        \item \textbf{Term elaboration}: Converts \lstinline{Syntax} to \lstinline{Expr}, handles type inference
+        \item Command elaborators invoke term elaborators internally
+        \item Examples: \lstinline{def} uses \lstinline{declarationElab}
+              \leftarrow calls term elaboration
+    \end{itemize}
+
+    \lstinputlisting{elaboration/basic-elaboration.lean}
+
+    \note<1>[item]{Elaboration has two distinct phases that work together but serve different purposes.}
+    \note<2>[item]{Command elaborators run on every top-level command in a Lean file. They can modify the global environment by adding definitions, axioms, or other declarations.}
+    \note<3>[item]{Term elaborators are responsible for converting syntax to expressions and performing type inference and checking.}
+    \note<4>[item]{The key insight is that command elaborators often call term
+        elaborators internally. For example, when you write \lstinline{def foo := bar}, the declaration elaborator processes the command structure but
+        calls term elaboration to handle the expression \lstinline{bar}.}
+    \note<5>[item]{This separation allows Lean to handle both the structural aspects of declarations and the semantic aspects of expressions in a modular way.}
+\end{frame}
+
+\begin{frame}[fragile]{The Expr Type: Lean's Abstract Syntax Tree}
+    \begin{itemize}[<+->]
+        \item \lstinline{Expr} represents the abstract syntax tree of Lean programs
+        \item Every term in Lean has a corresponding \lstinline{Expr}
+        \item Nine main constructors representing different expression types
+        \item Foundation for type checking, elaboration, and evaluation
+        \item Much simpler than source-level Lean syntax
+    \end{itemize}
+
+    \lstinputlisting{elaboration/expr-type.lean}
+
+    \note<1>[item]{After macro expansion, Lean works with expressions - the abstract syntax tree representation.}
+    \note<2>[item]{Every piece of Lean code you write gets converted to an Expr during elaboration.}
+    \note<3>[item]{The Expr type has 9 constructors - each representing a fundamental building block.}
+    \note<4>[item]{This is much simpler than the rich syntax we can write - that's the power of elaboration.}
+    \note<5>[item]{Understanding Expr is crucial for metaprogramming because tactics manipulate these directly.}
+\end{frame}
+
+\begin{frame}[fragile]{Expression Constructors Explained}
+    \begin{itemize}[<+(1)->]
+        \item \lstinline{bvar n}: Bound variables using de Bruijn indices
+        \item \lstinline{fvar id}: Free variables from local context
+        \item \lstinline{mvar id}: Metavariables - holes to be filled
+        \item \lstinline{sort u}: Universe sorts like \lstinline{Type}, \lstinline{Prop}
+        \item \lstinline{const name levels}: Named constants with universe levels
+        \item \lstinline{app f x}: Function application (curried)
+        \item \lstinline{lam name type body info}: Lambda abstractions
+        \item \lstinline{forallE name type body info}: Dependent function types
+        \item \lstinline{letE name type value body nonDep}: Let expressions
+    \end{itemize}
+
+    \note<1>[item]{bvar uses de Bruijn indices - numbers that count binders upward from the variable.}
+    \note<2>[item]{fvar represents local hypotheses and parameters - variables in the current context.}
+    \note<3>[item]{mvar are placeholders - they represent goals in tactic proofs and unification variables.}
+    \note<4>[item]{sort represents the type universe hierarchy - Type 0, Type 1, Prop, etc.}
+    \note<5>[item]{const represents everything declared in the environment - functions, theorems, types.}
+    \note<6>[item]{app is function application - multiple arguments use repeated application.}
+    \note<7>[item]{lam creates lambda functions - the foundation of functional programming.}
+    \note<8>[item]{forallE creates dependent function types - the foundation of type theory.}
+    \note<9>[item]{letE allows local definitions within expressions.}
+\end{frame}
+
+\begin{frame}[fragile]{De Bruijn Indices: Bound Variables}
+    \begin{itemize}[<+(1)->]
+        \item Bound variables use numbers instead of names
+        \item \lstinline{\#n} means "the binder n levels up"
+        \item Avoids variable capture during substitution
+        \item Essential for correct beta reduction
+        \item Enables "locally nameless" representation
+    \end{itemize}
+
+    \lstinputlisting{elaboration/de-bruijn-indices.lean}
+
+    \note<1>[item]{De Bruijn indices solve the variable capture problem in lambda calculus.}
+    \note<2>[item]{Instead of names, we use numbers counting binders from the variable location.}
+    \note<3>[item]{This ensures that substitution never accidentally captures variables.}
+    \note<4>[item]{Beta reduction becomes simple substitution without name concerns.}
+    \note<5>[item]{Names in binders are just suggestions for pretty-printing.}
+\end{frame}
+
+\begin{frame}[fragile]{Metavariables: Holes and Goals}
+    \begin{itemize}[<+->]
+        \item Metavariables represent unresolved parts of expressions
+        \item Two perspectives: holes in expressions, goals in proofs
+        \item Each has a unique \lstinline{MVarId}, target type, and local
+              context
+        \item Can be assigned values during elaboration/proof construction
+        \item Essential for unification and type inference
+    \end{itemize}
+
+    \lstinputlisting{elaboration/metavariables-example.lean}
+
+    \note<1>[item]{Metavariables are placeholders - they represent unknown parts of expressions.}
+    \note<2>[item]{In proofs, metavariables are goals. In type inference, they're unknown types.}
+    \note<3>[item]{Each metavariable has its own context of available hypotheses.}
+    \note<4>[item]{Assignment propagates through expressions - solving one goal can affect others.}
+    \note<5>[item]{This is how Lean does unification - by creating and solving metavariable constraints.}
+\end{frame}
+
+\begin{frame}[fragile]{The MetaM Monad: Managing Metavariables}
+    \begin{itemize}[<+->]
+        \item \lstinline{MetaM} provides access to metavariable context
+        \item Create metavariables with \lstinline{mkFreshExprMVar}
+        \item Assign metavariables with \lstinline{MVarId.assign}
+        \item Update expressions with \lstinline{instantiateMVars}
+        \item Essential for elaboration and tactic programming
+    \end{itemize}
+
+    \lstinputlisting{elaboration/metam-example.lean}
+
+    \note<1>[item]{MetaM is the core monad for metaprogramming - it manages metavariable state.}
+    \note<2>[item]{mkFreshExprMVar creates new goals/holes with specified types.}
+    \note<3>[item]{Assignment updates the global metavariable context.}
+    \note<4>[item]{instantiateMVars substitutes assigned metavariables throughout expressions.}
+    \note<5>[item]{This is how tactics work - they manipulate the metavariable context to build proofs.}
+\end{frame}
+
+\begin{frame}[fragile]{Command Elaboration Example}
+    \lstinputlisting{elaboration/command-elaboration.lean}
+
+    \note<1>[item]{This example shows a useful diagnostic command that tells us
+        what elaborators would handle a given piece of syntax.}
+    \note<1>[item]{It demonstrates how to interact with Lean's environment and
+        query the registered elaborators.}
+\end{frame}
+
+\begin{frame}[fragile]{Term Elaboration with Type Checking}
+    \lstinputlisting{elaboration/term-elaboration.lean}
+
+    \note<1>[item]{This example shows a more complex term elaborator that creates
+        anonymous constructor syntax for single-constructor types.}
+    \note<1>[item]{Notice how we use tryPostponeIfNoneOrMVar to handle cases
+        where type information isn't available yet - this is crucial for
+        Lean's elaboration algorithm.}
+\end{frame}
+
+\section{Introduction to Tactics}
+
+\begin{frame}[fragile]{Metavariables as Tactic Goals}
+    \begin{itemize}[<+->]
+        \item Each tactic goal is internally a metavariable
+        \item Metavariables store the goal's local context (available
+              hypotheses)
+        \item The metavariable's type is the goal we need to prove
+        \item Solving a goal = assigning the metavariable
+        \item Tactic communication happens through metavariable manipulation
+    \end{itemize}
+
+    \lstinputlisting{tactics/tactic-goals.lean}
+
+    \note<1>[item]{This is the key insight - every goal you see is a metavariable underneath.}
+    \note<2>[item]{The local context stores all available hypotheses and their types.}
+    \note<3>[item]{The target type is what we need to construct a proof term for.}
+    \note<4>[item]{When we "solve" a goal, we're actually assigning a proof term to the metavariable.}
+    \note<5>[item]{Tactics coordinate by creating, assigning, and passing around metavariables.}
+\end{frame}
+
+\begin{frame}[fragile]{Tactic State and Metavariable Flow}
+    \begin{itemize}[<+->]
+        \item Tactic state = list of unassigned metavariables (open goals)
+        \item Tactics receive current goal metavariable as input
+        \item Can split goals (create new metavariables)
+        \item Can solve goals (assign metavariables)
+        \item Can transform goals (change the type/context)
+    \end{itemize}
+
+    \lstinputlisting{tactics/tactic-state-flow.lean}
+
+    \note<1>[item]{The tactic state is just the list of metavariables that still need proof terms.}
+    \note<2>[item]{Each tactic gets the current goal and must decide what to do with it.}
+    \note<3>[item]{constructor creates new metavariables for the subgoals.}
+    \note<4>[item]{exact assigns a concrete proof term to close the goal.}
+    \note<5>[item]{At the end, all metavariables are assigned and we get the final proof term.}
+\end{frame}
+
+\begin{frame}[fragile]{What are Tactics?}
+    \begin{itemize}[<+->]
+        \item Programs that manipulate proof goals
+        \item Type: \lstinline{TacticM Unit}
+        \item Can be implemented via macros or elaboration
+        \item Transform goal states step by step
+        \item Essential for interactive theorem proving
+    \end{itemize}
+
+    \lstinputlisting{tactics/basic-tactics.lean}
+
+    \note<1>[item]{Tactics are programs that help construct proofs by manipulating
+        the goal state. They're essential for interactive theorem proving.}
+    \note<2>[item]{Simple tactics can be implemented as macros that expand to
+        existing tactics, while more complex ones require elaboration.}
+\end{frame}
+
+\begin{frame}[fragile]{Building an Assumption Tactic}
+    \lstinputlisting{tactics/assumption-tactic.lean}
+
+    \note<1>[item]{This tactic searches through the local context (hypotheses)
+        to find one that exactly matches the goal type.}
+    \note<1>[item]{It demonstrates key tactic programming concepts: accessing the goal,
+        iterating through hypotheses, and closing goals.}
+\end{frame}
+
+\begin{frame}{Resources and Next Steps}
+    \begin{itemize}[<+->]
+        \item \textbf{Book:} "Metaprogramming in Lean 4" (free online)
+        \item \textbf{Source Code:} Lean 4 repository on GitHub
+        \item \textbf{The Lean Language Reference:} \url{https://lean-lang.org/doc/reference/}
+    \end{itemize}
+
+    \note<1>[item]{The Metaprogramming in Lean 4 book is the definitive resource
+        and goes much deeper than this talk. It also has some exersizes.}
+    \note<2>[item]{To view the actual implementation you can read through the
+        lean prover source repository, but be warned, it is over 200k lines of
+        lean code.}
+    \note<3>[item]{I would not recommend the lean 4 language reference until you reviewed the basics from the Metaprogramming in
+        Lean 4 book.}
+\end{frame}
+
+\begin{frame}{Summary}
+    \begin{itemize}[<+->]
+        \item Lean's metaprogramming enables extensible syntax
+        \item \lstinline{Syntax} → Macros → Elaboration pipeline
+        \item Macros for simple transformations, elaborators for complex logic
+        \item Tactics manipulate proof goals programmatically
+        \item Powerful foundation for domain-specific languages
+        \item Essential skill for advanced Lean usage
+    \end{itemize}
+
+    \vspace{1cm}
+    \begin{center}
+        \Large Thank you for your attention!\\
+        \vspace{0.5cm}
+        Questions?
+    \end{center}
+
+    \note<1>[item]{Lean's metaprogramming system is what makes it so extensible
+        and powerful. Almost everything you use in Lean was built using these
+        same techniques.}
+    \note<2>[item]{The key insight is understanding the pipeline from syntax through
+        macros to elaboration, and knowing which tool to use when.}
+    \note<6>[item]{Mastering metaprogramming opens up advanced Lean techniques and
+        makes you much more effective at both using and contributing to the ecosystem.}
+\end{frame}
+\endNoHyper
+\end{document}
