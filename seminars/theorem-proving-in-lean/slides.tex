@@ -52,7 +52,7 @@
                 \item I am currently in the 4th semester of my Bachelor's
                       degree in Mathematics
                 \item I like to spend my time writing open source software in
-                      Rust, but I mostly spend it writing legacy C++ code :-).
+                      Rust, but I mostly spend it writing legacy C++ code :-)
             \end{itemize}
         \end{column}
         \begin{column}{0.5\textwidth}
@@ -72,11 +72,11 @@
 \begin{frame}
     \titlepage
     \note<1>[item]{
-        I would like to talk to you about Metaprogramming in Lean4 today. But
+        I would like to talk to you about Metaprogramming in Lean 4 today. But
         before I would like to thank the Lean Prover community since this talk is
-        largely based on the Metaprogramming in Lean4 book which. The book was a
-        great resource to get started on and I can now say that I a much better
-        understanding of some of the internals of lean.
+        largely based on the Metaprogramming in Lean 4 book. The book was a
+        great resource to get started on and I can now say that I have a much better
+        understanding of some of the internals of Lean.
     }
 \end{frame}
 
@@ -121,7 +121,7 @@
 
     \note<1>[item]{I want to set realistic expectations - metaprogramming in Lean is incredibly deep.}
     \note<2>[item]{We're covering the essentials in 60 minutes, but there's so much more.}
-    % Name them
+    % These are the fundamental concepts
     \note<3>[item]{These are the core concepts you need to understand how Lean works.}
     \note<4>[item]{Think of this as your entry point - enough to get started and know what to learn next.}
     \note<4>[item]{The Metaprogramming in Lean 4 book is freely available online and goes much deeper.}
@@ -139,13 +139,13 @@
                         metavariables, local context) between pure function
                         calls
                   \item But I won't define what a monad is — that's a whole
-                        other talk probably!
+                        other talk!
               \end{itemize}
     \end{itemize}
 
     \note<1>[item]{We'll use monads throughout but won't explain the theory behind them.}
     \note<2>[item]{For practical purposes, think of them as execution contexts with specific capabilities.}
-    \note<2>[item]{The theory of monads is beautiful but would take too long to explain properly!}
+    \note<2>[item]{The theory of monads is beautiful but would take too long to explain properly in this talk!}
 \end{frame}
 
 \begin{frame}[fragile]{What does it mean to be in meta?}
@@ -180,7 +180,7 @@
 
 \begin{frame}[fragile]{Lean Compilation Process}
     \begin{center}
-        \includegraphics[width=\textwidth]{lean-compilation-procees.png}
+        \includegraphics[width=\textwidth]{lean-compilation-process.png}
     \end{center}
 
     \vspace{0.5cm}
@@ -193,9 +193,9 @@
         \item Process is repeated for each top level command in a file
     \end{itemize}
 
-    % Eplain with parsing the header (the imports and then the top level command)
-    \note<1>[item]{As a 10000-foot overview of how Lean works: Lean will internally
-        act on two main types - the Syntax and Expr types.}
+    % Explain with parsing the header (the imports and then the top level command)
+    \note<1>[item]{As a 10,000-foot overview of how Lean works: Lean will internally
+        work with two main types - the Syntax and Expr types.}
     \note<1>[item]{You have actually seen an external representation of the Expr
         type in the previous talk.}
     \note<2>[item]{Step 1: Parser reads source code and builds Syntax trees using parser tables
@@ -227,7 +227,7 @@
               objects
         \item The parser follows rules defined by \lstinline{syntax}
               declarations
-        \item Each \lstinline{syntax} commadn adds a rule
+        \item Each \lstinline{syntax} command adds a rule
         \item The result is a concrete syntax tree (CST) representing your code
         \item This tree preserves all information: operators, precedence,
               structure
@@ -276,7 +276,7 @@
         code snippet. The output shows the complete tree structure, including source information
         and the hierarchical relationship between different syntax elements.}
 
-    \note<1>[item]{You migth wander what the \lstinline{term} after the colon in
+    \note<1>[item]{You might wonder what the \lstinline{term} after the colon in
         the syntax command means. It is something called a syntax category.}
 \end{frame}
 
@@ -310,7 +310,7 @@
 
     \lstinputlisting{basic/predefined-notation.lean}
 
-    \note<1>[item]{Before into more custom syntax, let's see Lean's convenient shortcuts for common patterns.}
+    \note<1>[item]{Before diving into more custom syntax, let's see Lean's convenient shortcuts for common patterns.}
     \note<2>[item]{infixl creates left-associative operators, infixr creates right-associative ones.}
     \note<3>[item]{notation is more flexible - you can put parameters anywhere in the syntax.}
     \note<4>[item]{These examples come directly from Lean's initialization code in Init/Notation.lean.}
@@ -331,7 +331,7 @@
     \lstinputlisting[lastline=14]{macros/basic-macro.lean}
 
     \note<1>[item]{Macros in Lean are \lstinline{Syntax → MacroM Syntax} functions. \lstinline{MacroM} is the macro
-    monad which allows macros to have some static guarenties about your code, you can mostly ignore it for now.}
+    monad which allows macros to have some static guarantees about your code, you can mostly ignore it for now.}
     \note<2>[item]{Macros are registered as handlers for a specific syntax declaration using the
         \lstinline{macro} attribute.}
     \note<3>[item]{The compiler will take care of applying these function
@@ -418,7 +418,8 @@
               \lstinline{x ∈ X, p x} notations
         \item Two possible approaches:
               \begin{enumerate}
-                  \item Define separate syntax and macro for each binding style
+                  \item Define separate syntax and macros for each binding
+                        style
                   \item Define reusable syntax category for binders
               \end{enumerate}
         \item \textbf{We choose approach 2} for reusability across other constructs
@@ -453,7 +454,7 @@
     \note<3>[item]{The proof by contradiction shows that our macro expansion preserves the intended logical meaning.}
 \end{frame}
 
-\section{Elaborationd}
+\section{Elaboration}
 
 \begin{frame}[fragile]{The Bridge from Syntax to Lambda Calculus}
     \begin{itemize}[<+->]
@@ -683,11 +684,11 @@
     \end{itemize}
 
     \note<1>[item]{The Metaprogramming in Lean 4 book is the definitive resource
-        and goes much deeper than this talk. It also has some exersizes.}
+        and goes much deeper than this talk. It also has some exercises.}
     \note<2>[item]{To view the actual implementation you can read through the
-        lean prover source repository, but be warned, it is over 200k lines of
-        lean code.}
-    \note<3>[item]{I would not recommend the lean 4 language reference until you reviewed the basics from the Metaprogramming in
+        Lean prover source repository, but be warned, it is over 200,000 lines of
+        Lean code.}
+    \note<3>[item]{I would not recommend the Lean 4 language reference until you have reviewed the basics from the Metaprogramming in
         Lean 4 book.}
 \end{frame}
 
@@ -707,7 +708,7 @@
         \vspace{0.5cm}
         Questions?
 
-        \textbf{The source for the slides and examples can be found here:}
+        \textbf{Source for slides and examples:}
         \url{https://github.com/michaelvanstraten/Mathematics-B.Sc./tree/master/seminars/theorem-proving-in-lean}
     \end{center}
 
