@@ -1,5 +1,11 @@
 \documentclass[aspectratio=169]{beamer}
 
+\mode<presentation> {
+\usepackage{pgfpages}
+\setbeameroption{show notes on second screen=right}
+\setbeamertemplate{navigation symbols}{}
+}
+
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
@@ -28,6 +34,8 @@
 
 \begin{document}
 
+\NoHyper
+
 \begin{frame}
     \titlepage
 
@@ -48,7 +56,7 @@
               linear functions $f_{i \in \set{1, \dots, k}}(x)$ such that
               \[
                   f(x) \in \set{f_1(x), f_2(x), \dots, f_k(x)}
-                  \forall x \in \reals^n.
+                  \quad \forall x \in \reals^n.
               \]
         \item<2-> Piecewise composition creates non-differentiable points
         \item<3-> Classical optimization methods (SQP, Newton, trust-region)
@@ -501,7 +509,7 @@
 \begin{frame}{Overall algorithm flow}
     \centering
     \begin{figure}
-        \includegraphics[width=0.6\textwidth]{assets/asm.png}
+        \includegraphics[width=0.6\textwidth]{assets/asm_flow.png}
     \end{figure}
 \end{frame}
 
@@ -547,7 +555,65 @@
     \end{figure}
 \end{frame}
 
-\section{My work on CASM's implementation}
+\section{Constrained Active Signature Method}
+
+\begin{frame}{Motivation and Overview}
+    \begin{itemize}[<+->]
+        \item The focus now has mainly been on unconstrained optimization
+              problems.
+        \item The Constrained Active Signature method allows for piecewise
+              linear constraints both equality and inequality
+        \item In addition to academic test problems, there are of course
+              real-world application problems where such optimization problems
+              arise. For example gas networks
+
+        \item we will be briefly covering some of the required changes, going
+              any deeper would also be out of scope (I also don't understand it
+              that well so I could not be telling you even I i wanted to)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Changes to the abs-linear optimization problem (CALOP)}
+    The constrained version extends the original formulation:
+    \begin{align}
+        \min_{x \in \reals^n, z \in \reals^s} \quad & a^T x + b^T z                                        \\
+        \text{s.t.} \quad \onslide<2->{             & 0 = g + Ax + Bz + C|z|,                              \\
+                                                    & 0 \geq h + Dx + Ez + F|z|, \\}
+                                                    & z = c + Zx + Mz + L|z|
+    \end{align}
+    where \(g \in \reals^m\), \(h \in \reals^p\), \(A \in \reals^{m \times n}\),
+    \(B, C \in \reals^{m \times s}\), \(D \in \reals^{p \times n}\) and
+    \(E, F \in \reals^{p \times s}\).
+
+    \begin{itemize}[<+(2)->]
+        \item Additional equality constraints: \(0 = g + Ax + Bz + C|z|\)
+        \item Additional inequality constraints: \(0 \geq h + Dx + Ez + F|z|\)
+        \item Matrices \(A, B, C, D, E, F\) and vectors \(g, h\) define the
+              piecewise linear constraints
+        \item The switching vector \(z\) will potentially be larger to handle
+              the additional absolute value terms from constraints
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Changes when calculating the step Size}
+    \begin{figure}
+        \includegraphics[width=0.7\textwidth]{assets/step_size.png}
+    \end{figure}
+
+    \begin{itemize}[<+(1)->]
+        \item We now need to conside if we are hitting a kink or an inequality
+              constraint
+        \item We take the minimum of the two step sizes
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Changes to the overall algorithm}
+    \begin{figure}
+        \includegraphics[width=0.6\textwidth]{assets/casm_flow.png}
+    \end{figure}
+\end{frame}
+
+\section{Work on CASM's implementation}
 
 \begin{frame}{Background and Initial State}
     \begin{itemize}[<+->]
@@ -583,7 +649,7 @@
 \begin{frame}{Repository Optimization}
     \begin{itemize}[<+->]
         \item Started by splitting codebase into separate parts with Adrian
-        \item Optimized GitHub repository for clone speed
+        \item Optimized repository for clone speed
         \item Original repo contained many unnecessary files (400MB+)
         \item Used git filter-repo and Git LFS to reduce size to under 1MB
         \item Benefits: faster downloads and no exposure of unnecessary files
@@ -637,7 +703,7 @@
     }
     \note<3>{
         There was also another container-overflow and double free in cleanUp
-        tape_handling.cpp:588.
+        tape\_handling.cpp:588.
     }
     \note<4>{
         These bugs were causing test failures in the CASM test suite and were
@@ -648,12 +714,12 @@
 \begin{frame}{C++23 Modernization}
     \begin{itemize}[<+->]
         \item Refactored codebase to use new C++23 features
-        \item Original code had some issues:
+        \item Original code was not ideal in some places:
               \begin{itemize}
                   \item Matrix-vector multiplication implemented as for loops
                   \item Memory allocations using malloc and delete
               \end{itemize}
-        \item Set up proper dependency management:
+        \item Set up improved dependency management:
               \begin{itemize}
                   \item Git submodules
                   \item Meson build system
@@ -821,6 +887,7 @@ Eigen::Matrix<double, s, 1> EvalSwitchingVector(
         \item Common test suite for PL problems to test against other solvers
         \item Documentation cleanup and proper README
         \item License addition
+        \item Global minima with SCIP-CASM?
     \end{itemize}
 
     \note<1>{
