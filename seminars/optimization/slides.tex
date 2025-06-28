@@ -53,6 +53,8 @@
     }
 \end{frame}
 
+\section{Motivation}
+
 \begin{frame}{Motivation}
     \begin{itemize}[<+->]
         \item A function $f \colon \reals^n \to \reals$ is \textbf{PL}
@@ -231,7 +233,7 @@
         Consider the function \(f(x) : \reals^2 \to \reals\)
         \begin{align*}
             \onslide<1-> {f(x) & = \max\{0, x_1 - |x_2|\} \\}
-            \onslide<2-> {     & = \frac{1}{2} (x_1 − \abs{x_2} +
+            \onslide<2-> {     & = \frac{1}{2} (x_1 - \abs{x_2} +
                 \abs{x_1 - \abs{x_2}}).}
         \end{align*}
     }
@@ -358,10 +360,9 @@
     \begin{itemize}[<+(1)->]
         \item Signature vector \(\sgn(z)\) changes across input domain
         \item Each sign flip corresponds to different polyhedron
-        \item Boundares \(\sgn(z)_i = 0\) encodes the potential non-smooth
+        \item Boundaries \(\sgn(z)_i = 0\) encode the potential non-smooth
               points of the system.
-        \item Regions where \(\sgn(z)\) is fixed represent are called signature
-              domain.
+        \item Regions where \(\sgn(z)\) is fixed are called signature domains.
     \end{itemize}
 
     \note<1>{
@@ -415,13 +416,13 @@
 
     \begin{itemize}[<+(1)->]
         \item To bound the objective function from below we introduce a
-              quadratic penaltry term using a positive definite matrix \(Q \in
+              quadratic penalty term using a positive definite matrix \(Q \in
               \reals^{n \times n}\)
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Computing a decent direction}
-    To determine a descent direction, KKT-theory is applied to arive at the
+\begin{frame}{Computing a descent direction}
+    To determine a descent direction, KKT-theory is applied to arrive at the
     following system of linear equations
     \[
         \begin{bmatrix}
@@ -563,21 +564,20 @@
 
 \begin{frame}{Motivation and Overview}
     \begin{itemize}[<+->]
-        \item The focus now has mainly been on unconstrained optimization
+        \item The focus so far has mainly been on unconstrained optimization
               problems.
         \item The Constrained Active Signature method allows for piecewise
               linear constraints both equality and inequality
         \item In addition to academic test problems, there are of course
               real-world application problems where such optimization problems
-              arise. For example gas networks
+              arise. For example, gas networks.
 
-        \item we will be briefly covering some of the required changes, going
-              any deeper would also be out of scope (I also don't understand it
-              that well so I could not be telling you even I i wanted to)
+        \item We will briefly cover some of the required changes; going any
+              deeper would be out of scope for this presentation.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Changes to the abs-linear optimization problem (CALOP)}
+\begin{frame}{Changes to the Abs-Linear optimization problem (CALOP)}
     The constrained version extends the original formulation:
     \begin{align}
         \min_{x \in \reals^n, z \in \reals^s} \quad & a^T x + b^T z                                        \\
@@ -605,7 +605,7 @@
     \end{figure}
 
     \begin{itemize}[<+(1)->]
-        \item We now need to conside if we are hitting a kink or an inequality
+        \item We now need to consider if we are hitting a kink or an inequality
               constraint
         \item We take the minimum of the two step sizes
     \end{itemize}
@@ -706,7 +706,7 @@
         not reallocated when the number of variables changed.
     }
     \note<3>{
-        There was also another container-overflow and double free in cleanUp
+        There was also another container-overflow and double free in cleanup
         tape\_handling.cpp:588.
     }
     \note<4>{
@@ -736,7 +736,7 @@
         features.
     }
     \note<2>{
-        Since many routines, like matrix-vector multiplication, were implemented
+        The original code was not ideal in some places: many routines, like matrix-vector multiplication, were implemented
         as for loops and allocations were mainly done using malloc and delete.
     }
     \note<3>{
@@ -763,7 +763,7 @@
     \end{itemize}
 
     \note<1>{
-        Since there was already a lot of code changing, I decided to refactor
+        Since I was already changing a lot of code, I decided to refactor
         using the popular Eigen library.
     }
     \note<2>{
