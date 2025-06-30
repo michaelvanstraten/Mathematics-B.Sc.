@@ -38,7 +38,9 @@ $
   <=> & abs(frac(g(t) - g(x) - t g'(0), t)) && < epsilon        \
   <=> & abs(g(t) - g(x) - t g'(0))          && < abs(t) epsilon
 $
-Definieren wir $T_x g(t) := g'(x) t$ so folgt das $g$ auch #smallcaps("Frechet")-differenzierbar an der stelle $0$ ist. ($T_x g(t)$ ist offensichtlich linear
+Definieren wir $T_x g(t) := g'(x) t$ so folgt das $g$ auch #smallcaps(
+  "Frechet",
+)-differenzierbar an der stelle $0$ ist. ($T_x g(t)$ ist offensichtlich linear
 in $t$).
 
 Somit folgt das wenn $f compose gamma$ an der Stelle $0$ differenzierbar ist
