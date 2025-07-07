@@ -14,19 +14,20 @@
 
 === Lösung:
 
-Defineieren wir die funktionen $f : RR^2 & -> RR$ und $g : RR^2 -> RR$ wiefolgt
+Definieren wir die Funktionen $f : RR^2 & -> RR$ und $g : RR^2 -> RR$ wie folgt
 $
   (x_1, x_2) mapsto x_1^2 + x_2^2 #h(2em) "sowie" #h(2em) (x_1, x_2) mapsto x_1 x_2.
 $
-Da $f$ differenzierbar ist hat es ein minimum auf $Q$.
+Da $f$ differenzierbar ist, hat es ein Minimum auf $Q$.
 
-Mit Satz 19.1 folgt nun für ein minimum $x in RR^2$ das folgende gleichungsystem
+Mit Satz 19.1 folgt nun für ein Minimum $x in RR^2$ das folgende
+Gleichungssystem
 $
   T_x f = (2x_1, 2x_2) & = lambda T_x g = (lambda x_2, lambda x_1) \
                  "und" \
                x_1 x_2 & = 1.
 $
-Aus welchem folgt mit
+Aus diesem folgt mit
 $
         x_1 x_2 = 1 & => x_1 != 0            && => x_2 = 1/x_1 \
   2x_1 = lambda x_2 & => 2x_1 = lambda 1/x_1 && => lambda = 2 x_1^2 \
@@ -34,8 +35,8 @@ $
                                                 and x_2 = plus.minus 1
                                                 and lambda = 2.
 $
-Da $sqrt(dot)$ monoton ist, ist $x = (plus.minus 1, plus.minus 1)$ das minimum
-von $norm(dot)_2$ auf $Q$ mit abstand $sqrt(2)$.
+Da $sqrt(dot)$ monoton ist, ist $x = (plus.minus 1, plus.minus 1)$ das Minimum
+von $norm(dot)_2$ auf $Q$ mit Abstand $sqrt(2)$.
 
 #pagebreak()
 
@@ -64,26 +65,27 @@ von $norm(dot)_2$ auf $Q$ mit abstand $sqrt(2)$.
 
 === Lösung:
 
-Definerien wir die funktionen $f : RR^3 -> RR$ und $g : RR^3 -> RR$ wiefolgt
+Definieren wir die Funktionen $f : RR^3 -> RR$ und $g : RR^3 -> RR$ wie folgt
 $
   (x, y, z) mapsto x y z #h(2em) "sowie" #h(2em) (x, y, z) mapsto x^2 / a^2 + y^2 / b^2 + z^2 / c^2.
 $
-Da $f$ differenzierbar ist hat es ein maximum auf $E$.
+Da $f$ differenzierbar ist, hat es ein Maximum auf $E$.
 
-Mit Satz 19.1 folgt nun für ein maximum $x in RR^3$ das folgende gleichungsystem
+Mit Satz 19.1 folgt nun für ein Maximum $x in RR^3$ das folgende
+Gleichungssystem
 $
   T_(x,y,z) f = (y z, x z, x y) = lambda T_(x,y,z) g = (lambda x / a^2, lambda y / b^2, lambda z / c^2) \
   "und" \
   x^2 / a^2 + y^2 / b^2 + z^2 / c^2 = 1.
 $
-Aus welchem folgt
+Aus diesem folgt
 $
   x = a / sqrt(3), y = b / sqrt(3), z = c / sqrt(3) \
   "sowie" \
   lambda = (b c) / (3 sqrt(3) a).
 $
 Da $f$ symmetrisch ist, ist $x = (a / sqrt(3), b / sqrt(3), c / sqrt(3))$ das
-maximum von $f$ auf $E$ mit volumen
+Maximum von $f$ auf $E$ mit Volumen
 $8 (a / sqrt(3)) (b / sqrt(3)) (c / sqrt(3)) = 8 (a b c) / (3 sqrt(3))$.
 
 #pagebreak()
@@ -104,7 +106,7 @@ $8 (a / sqrt(3)) (b / sqrt(3)) (c / sqrt(3)) = 8 (a b c) / (3 sqrt(3))$.
 
 === Lösung:
 
-Bemerken wir zunächst das
+Bemerken wir zunächst, dass
 $
   f^(-1)(1)
   = lr({ x in RR^n : (sum_(i=1)^n abs(x_i)^p)^(1/p) = 1 }, size: #50%)
@@ -117,7 +119,7 @@ $
   tilde(g) : RR^n -> RR, x mapsto sum_(i=1)^n x_i^q \
   tilde(f) : RR^n -> RR, x mapsto sum_(i=1)^n x_i^p,
 $
-so liefert Satz 19.1 für ein Extremum $x$ auf der Menge ${x in RR^n, f(x)=1}$
+so liefert Satz 19.1 für ein Extremum $x$ auf der Menge ${x in RR^n : f(x)=1}$
 das Gleichungssystem
 $
   q x_i^(q-1) = lambda p x_i^(p-1)
@@ -125,7 +127,7 @@ $
   sum_(i=1)^n x_i^p = 1.
 $
 
-Sei nun $k$ die Anzahl der von Null verschiedenen Koordinaten von $x$. Für jede
+Sei nun $k$ die Anzahl der von null verschiedenen Koordinaten von $x$. Für jede
 dieser Koordinaten gilt
 $
   x_i^(q-p) = lambda p/q
@@ -152,7 +154,7 @@ $
   = k^(1/q - 1/p).
 $
 
-Da $k in {1,2,…,n}$ läuft der Wert $k^(1/q -1/p)$ zwischen
+Da $k in {1,2,…,n}$, läuft der Wert $k^(1/q -1/p)$ zwischen
 $
   k=1 => 1^(1/q -1/p) = 1
   "und"
@@ -164,4 +166,3 @@ $
   quad "und" quad
   C(p,q) = max_(1<=k<=n) k^(1/q -1/p) = max{1, n^(1/q -1/p)}.
 $
-
