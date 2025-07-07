@@ -21,7 +21,7 @@
 
 Definieren wir zunächt die Funktion
 $
-  f colon RR^3 times RR^3 times RR^3 & -> RR^3                                   \
+  f colon RR^3 times RR^3 times RR^3 & -> RR^3 \
                        "mit" (x,y,z) & mapsto (norm(x), norm(y-x), norm(y-z))^T.
 $
 Berechnen wir nun die totale ableitung der Funktion $f$ an der Stelle $(x,y,z)$

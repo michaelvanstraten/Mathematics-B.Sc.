@@ -34,8 +34,8 @@ Sei $g: RR -> RR$ differenzierbar in der $0$ nach der Definition aus Analysis I.
 So folgt das für alle $epsilon > 0$ ein $delta > 0$ existert so das wenn $abs(t)
 in RR < delta$ das
 $
-      & abs(frac(g(t) - g(x), t) - g'(0))   && < epsilon        \
-  <=> & abs(frac(g(t) - g(x) - t g'(0), t)) && < epsilon        \
+      & abs(frac(g(t) - g(x), t) - g'(0))   && < epsilon \
+  <=> & abs(frac(g(t) - g(x) - t g'(0), t)) && < epsilon \
   <=> & abs(g(t) - g(x) - t g'(0))          && < abs(t) epsilon
 $
 Definieren wir $T_x g(t) := g'(x) t$ so folgt das $g$ auch #smallcaps(

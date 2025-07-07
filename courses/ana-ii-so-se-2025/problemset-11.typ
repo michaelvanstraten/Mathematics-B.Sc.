@@ -23,12 +23,12 @@ Da $f$ differenzierbar ist hat es ein minimum auf $Q$.
 Mit Satz 19.1 folgt nun für ein minimum $x in RR^2$ das folgende gleichungsystem
 $
   T_x f = (2x_1, 2x_2) & = lambda T_x g = (lambda x_2, lambda x_1) \
-                 "und"                                             \
+                 "und" \
                x_1 x_2 & = 1.
 $
 Aus welchem folgt mit
 $
-        x_1 x_2 = 1 & => x_1 != 0            && => x_2 = 1/x_1      \
+        x_1 x_2 = 1 & => x_1 != 0            && => x_2 = 1/x_1 \
   2x_1 = lambda x_2 & => 2x_1 = lambda 1/x_1 && => lambda = 2 x_1^2 \
   2x_2 = lambda x_1 & => 2 = 2 x_1^4         && => x_1 = plus.minus 1
                                                 and x_2 = plus.minus 1

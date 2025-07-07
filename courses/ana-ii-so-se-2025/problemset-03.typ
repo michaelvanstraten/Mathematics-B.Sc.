@@ -119,7 +119,7 @@ _Beweis_
   $
     I(f) & = I(sum_(i=1)^n c_i chi_([t_(i-1), t_i])) \
          & = sum_(i=1)^n c_i I(chi_([t_(i-1), t_i])) \
-         & = sum_(i=1)^n c_i (t_i - t_(i-1)).        \
+         & = sum_(i=1)^n c_i (t_i - t_(i-1)). \
   $
 
   Bemerken wir, dass für $c_max := max(c_1, ..., c_n)$ sowie
@@ -163,5 +163,5 @@ _Beweis_
                 & = lim_(n->infinity) J(lambda f_n) \
                 & = lim_(n->infinity) I(lambda f_n) \
                 & = lambda lim_(n->infinity) I(f_n) \
-                & = lambda J(f).                    \
+                & = lambda J(f). \
   $

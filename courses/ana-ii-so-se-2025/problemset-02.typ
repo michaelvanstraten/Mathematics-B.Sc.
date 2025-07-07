@@ -86,8 +86,8 @@
 + Sei $n in NN$ sowie $x in RR$. Dann folgt:
   $
     n f(x) & = underbrace(f(x) + ... + f(x), n"-mal") \
-           & = f\(underbrace(x + ... + x, n"-mal")\)  \
-           & = f(n x).                                \
+           & = f\(underbrace(x + ... + x, n"-mal")\) \
+           & = f(n x). \
   $
   Also ist $f$ homogen für Skalare in $NN$.
 
