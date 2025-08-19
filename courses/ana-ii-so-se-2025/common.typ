@@ -50,3 +50,4 @@
 #let scr(it) = text(features: ("ss01",), box($cal(it)$))
 
 #let distance = math.op("d")
+#let Sym = math.op("Sym", limits: false)

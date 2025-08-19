@@ -27,13 +27,13 @@ $a dot b = a^H b in KK$.
   rechts und links umformen.
 
   $
-    det(I - a b^H) & = det(mat(I - a b^H, a; 0, 1))                     \
+    det(I - a b^H) & = det(mat(I - a b^H, a; 0, 1)) \
                    & = det(mat(I - a b^H, a; 0, 1) mat(1, 0; b^H, I_n)) \
-                   & = det(mat(I_n, a; b^H, I_n))                       \
-                   & = I - b^H a                                        \
-                   & = I - angle.l b, a angle.r_"Standard"              \
-                   & = I - overline(angle.l a\, b angle.r)_"Standard"   \
-                   & = I - overline(a dot b)                            \
+                   & = det(mat(I_n, a; b^H, I_n)) \
+                   & = I - b^H a \
+                   & = I - angle.l b, a angle.r_"Standard" \
+                   & = I - overline(angle.l a\, b angle.r)_"Standard" \
+                   & = I - overline(a dot b) \
   $
 
 + Siehe (c).
@@ -53,18 +53,18 @@ $a dot b = a^H b in KK$.
   Via algebraischer Umformung folgt:
 
   $
-        & A x - b times.circle c x && = y                                           \
-    <=> & A x                      && = y + b times.circle c x                      \
-    <=> & x                        && = A^(-1) y + A^(-1) b times.circle c x        \
+        & A x - b times.circle c x && = y \
+    <=> & A x                      && = y + b times.circle c x \
+    <=> & x                        && = A^(-1) y + A^(-1) b times.circle c x \
         &                          && = A^(-1) y + A^(-1) b underbrace(c^H x, =: s) \
   $
 
   Bezeichnen wir $s in KK$ und stellen nun nach $s$ um, so folgt
 
   $
-        & s = c^H x            && = c^H A^(-1) y + c^H A^(-1) b s       \
-    <=> & s + c^H A^(-1) b s   && = c^H A^(-1) y                        \
-    <=> & (1 + c^H A^(-1) b) s && = c^H A^(-1) y                        \
+        & s = c^H x            && = c^H A^(-1) y + c^H A^(-1) b s \
+    <=> & s + c^H A^(-1) b s   && = c^H A^(-1) y \
+    <=> & (1 + c^H A^(-1) b) s && = c^H A^(-1) y \
     <=> & s                    && = (c^H A^(-1) y) / (1 + c^H A^(-1) b) \
   $
 
@@ -118,7 +118,7 @@ Matrix-Vektor-Multiplikation $T b$.
   Hauptdiagonalen und—außer an den beiden Rändern—jeweils eine weitere
   Multiplikation und eine Addition für Unter- bzw. Überdiagonale. Insgesamt:
   $
-    cal(O)_(*,\/)(n) & = 2(n-1) + (n-1) && = 3n-2  \
+    cal(O)_(*,\/)(n) & = 2(n-1) + (n-1) && = 3n-2 \
      cal(O)_(+,-)(n) & = (n-1) + (n-1)  && = 2n-2. \
   $
 
@@ -131,7 +131,7 @@ Matrix-Vektor-Multiplikation $T b$.
   $
     cal(O)_(*,\/)(n) & = underbrace((n-1), "Division") +
                        underbrace((n-1), "Multiplikationen") && = 2n-2 \
-     cal(O)_(+,-)(n) &                                       && = n-1  \
+     cal(O)_(+,-)(n) &                                       && = n-1 \
   $
 
 // Obwohl beide Algorithmen dieselbe asymptotische Komplexität aufweisen,
