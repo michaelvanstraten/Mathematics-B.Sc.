@@ -64,6 +64,7 @@
                 self.checks.${system}.git-hooks.enabledPackages
                 pkgs.texlab
                 pkgs.texlivePackages.latexindent
+                pkgs.typst
               ];
             };
 
