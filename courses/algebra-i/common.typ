@@ -40,3 +40,6 @@
   *Aufgabe #context aufgabe-counter.display().*
   #body
 ]
+#let overset(a, b) = {
+  math.attach(math.limits(b), t: a)
+}
