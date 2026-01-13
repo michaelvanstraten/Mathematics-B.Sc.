@@ -17,3 +17,6 @@ result*
 *.synctex.gz
 *.toc
 *.vrb
+
+# Cache directory created by https://direnv.net/
+.direnv/
