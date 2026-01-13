@@ -37,7 +37,7 @@
 
 #exercise([15 = 10 + 5])[
   Seien $d in NN_0$, $A in scr(B)(RR^d)$, und $v in RR^(d+1)$. Der *Kegel mit
-    Basis $A$ und Spitze $v$* ist
+  Basis $A$ und Spitze $v$* ist
   $
     "cone"(A, v) := {(1 - t)(x, 0) + t v in RR^(d+1) : x in A, t in [0, 1]}.
   $

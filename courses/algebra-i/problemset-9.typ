@@ -38,7 +38,8 @@
             b d & = 1.
   $
   Aus der letzten Gleichung folgt $b = d = plus.minus 1$. Wenn wir dies auf $a d
-  + b c = -2$ anwenden, folgt $a + c = plus.minus 2$ #sym.arrow.zigzag, da $a + c = 3$.
+  + b c = -2$ anwenden, folgt $a + c = plus.minus 2$ #sym.arrow.zigzag, da
+  $a + c = 3$.
 
   Somit kann $f$ nicht reduzibel sein.
 

@@ -127,7 +127,7 @@
   $
 
   *Wir zeigen nun, dass $angle.l A_1 angle.r_(sigma) = angle.l A_2
-    angle.r_(sigma) = angle.l A_3 angle.r_(sigma) = angle.l A_4 angle.r_(sigma)$.*
+  angle.r_(sigma) = angle.l A_3 angle.r_(sigma) = angle.l A_4 angle.r_(sigma)$.*
 
   Da $[a, infinity) in A_1$ für alle $a in [0, infinity]$ ist, muss
   $[0, a) in angle.l A_1 angle.r_(sigma)$ für alle $a in (0, infinity)$ sein
@@ -148,7 +148,7 @@
   angle.r_(sigma) = angle.l A_1 angle.r_(sigma)$.
 
   *Wir zeigen nun, dass $scr(B)([0, infinity]) subset.eq angle.l A_1
-    angle.r_(sigma)$.*
+  angle.r_(sigma)$.*
 
   Jedes offene Intervall in $[0, infinity]$ lässt sich durch ein Element in
   $angle.l A_1 angle.r_(sigma)$ darstellen. Man nehme sich hierfür ein Intervall
