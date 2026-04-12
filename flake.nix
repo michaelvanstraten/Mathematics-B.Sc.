@@ -35,7 +35,7 @@
               git-hooks = git-hooks.lib.${system}.run {
                 src = ./.;
                 hooks = {
-                  nixfmt-rfc-style.enable = true;
+                  nixfmt.enable = true;
                   latexindent = {
                     enable = true;
                     settings = {
@@ -56,7 +56,7 @@
               };
             };
 
-            formatter = pkgs.nixfmt-rfc-style;
+            formatter = pkgs.nixfmt;
 
             devShells.default = pkgs.mkShell {
               inherit (self.checks.${system}.git-hooks) shellHook;
