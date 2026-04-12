@@ -112,14 +112,13 @@
                     config = "riscv32-none-elf";
                   };
                 };
-
               in
               mkShell {
                 packages = [
-                  ghdl-llvm
                   pkgs.zlib
                   riscv32.buildPackages.gcc
-                ];
+                ]
+                ++ (pkgs.lib.optionals (pkgs.stdenv.hostPlatform == "aarch64-darwin") [ ghdl-llvm ]);
               };
           }
         )
