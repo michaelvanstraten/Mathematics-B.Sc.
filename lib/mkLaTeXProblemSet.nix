@@ -17,6 +17,7 @@
       mathtools
       multirow # nla/problemset-8
       pgfplots # ana-i/problemset-10
+      nicematrix # nla/problemset-13
       rsfs # ana-i/problemset-13
       substr
       thmtools
@@ -50,6 +51,11 @@ let
             ../problemset.cls
           ];
         };
+      preBuild = ''
+        mkdir -p "$TMPDIR/texmf-var"
+        export TEXMFCACHE="$TMPDIR/texmf-var"
+        export TEXMFVAR="$TMPDIR/texmf-var"
+      '';
     }
     // cleanedArgs;
 

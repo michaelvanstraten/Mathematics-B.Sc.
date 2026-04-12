@@ -7,8 +7,6 @@ flake-utils.lib.eachDefaultSystem (
   system:
   let
     inherit (self.lib.${system}) mkLaTeXProblemSets;
-  in
-  {
     packages = flake-utils.lib.flattenTree {
       nla =
         mkLaTeXProblemSets {
@@ -19,5 +17,9 @@ flake-utils.lib.eachDefaultSystem (
           recurseForDerivations = true;
         };
     };
+  in
+  {
+    inherit packages;
+    checks = packages;
   }
 )
