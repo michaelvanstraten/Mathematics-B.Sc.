@@ -1,11 +1,22 @@
 {
   description = "Deterministic LaTeX compilation with Nix";
 
+  nixConfig = {
+    extra-substituters = [ "https://typst-nix.cachix.org" ];
+    extra-trusted-public-keys = [
+      "typst-nix.cachix.org-1:OzDUMt0nd4wlI1AHucBPnchl4utWXeFTtUFt8XZ3DbA="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     git-hooks.url = "github:cachix/git-hooks.nix";
     latix.url = "github:michaelvanstraten/latix";
+    typix = {
+      url = "github:loqusion/typix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

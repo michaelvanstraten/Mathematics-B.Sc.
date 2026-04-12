@@ -257,7 +257,8 @@
         "flake-utils": "flake-utils",
         "git-hooks": "git-hooks",
         "latix": "latix",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_4",
+        "typix": "typix"
       }
     },
     "systems": {
@@ -287,6 +288,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "typix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1770454285,
+        "narHash": "sha256-phmRhL/oS1MRoRsrF9bSLe+ZNlBOI6bRqYrLhFKAC54=",
+        "owner": "loqusion",
+        "repo": "typix",
+        "rev": "f3dd958107debd143a1f1236d1994419e2bf7491",
+        "type": "github"
+      },
+      "original": {
+        "owner": "loqusion",
+        "repo": "typix",
         "type": "github"
       }
     }

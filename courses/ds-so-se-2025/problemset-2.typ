@@ -33,7 +33,9 @@
       #align(center)[
         *3-bit Addierer*
 
-        #image("./template-for-3-bit-adder.png", width: 30%),
+        // Missing
+        //
+        // #image("./template-for-3-bit-adder.png", width: 30%),
       ]
     ]
 
@@ -58,7 +60,9 @@
       *3-bit Addierer* - #link(
         "https://circuitverse.org/users/315587/projects/digitale-systeme-ss2025-hausaufgaben-2-1-gruppe-30",
       )[Link zur Simulation]
-      #image("3-bit-adder.png", width: 30%)
+      // Missing
+      //
+      // #image("3-bit-adder.png", width: 30%)
     ]
   ]
 

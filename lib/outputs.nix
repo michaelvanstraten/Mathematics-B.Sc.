@@ -2,6 +2,7 @@
   flake-utils,
   latix,
   nixpkgs,
+  typix,
   ...
 }@inputs:
 let
@@ -28,6 +29,10 @@ recursiveUpdate
               inherit (latix.lib.${system}) buildLatexmkProject;
             };
             mkLaTeXProblemSets = callPackage ./mkLaTeXProblemSets.nix { };
+            mkTypstProblemSet = callPackage ./mkTypstProblemSet.nix {
+              inherit (typix.lib.${system}) buildTypstProject;
+            };
+            mkTypstProblemSets = callPackage ./mkTypstProblemSets.nix { };
           }
         );
       }
