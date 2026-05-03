@@ -20,3 +20,6 @@ result*
 
 # Cache directory created by https://direnv.net/
 .direnv/
+
+# Octave stuff
+octave-workspace
