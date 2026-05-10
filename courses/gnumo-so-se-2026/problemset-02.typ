@@ -2,9 +2,7 @@
 
 #show: problemset("2")
 
-#exercise([5])[
-  *(Vandermonde-Matrix)*
-
+#exercise("Vandermonde-Matrix", [5])[
   Formuliert man die Lagrangesche Interpolationsaufgabe zu $n + 1$ paarweise
   verschiedenen Stützstellen $x_0, dots, x_n$ und gegebenen Werten
   $y_0, dots, y_n$ in der Monombasis ${1, x, dots, x^n}$, so erhält man ein
@@ -134,9 +132,7 @@
 
 #pagebreak()
 
-#exercise([5])[
-  *(Newton-Interpolation)*
-
+#exercise("Newton-Interpolation", [5])[
   + Es sei $f(x) = ln(x)$ auf $RR_+ := {r in RR : r > 0}$ gegeben. Betrachten
     Sie die Stützstellen $x_j = bold(e)^j$ für $j = 0, 1, 2$ und setzen Sie
     $y_j := ln(x_j)$. Bestimmen Sie das Interpolationspolynom mittels des Newton
@@ -160,9 +156,7 @@
 
 #pagebreak()
 
-#exercise([5])[
-  *(Hermite-Interpolation)*
-
+#exercise("Hermite-Interpolation", [5])[
   + Bestimmen Sie die Lösung des folgenden Hermiteschen Interpolationsproblems
     $p(x)$ zu den Bedingungen $p(x_0) = -1$, $p'(x_0) = 1$ und $p(x_1) = 1$ mit
     $m = 1$ sowie $x_0 = 0$ und $x_1 = 1$. Nutzen Sie dazu die verallgemeinerten
