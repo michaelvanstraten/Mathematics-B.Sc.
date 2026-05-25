@@ -25,12 +25,16 @@
         #h(1fr)
         Michael van Straten, Tobias Sommerfeld \
         *Lösungen*: Serie #number \
+        // #link(
+        //   "https://github.com/michaelvanstraten/Mathematics-B.Sc./blob/main/courses/gnumo-so-se-2026/problemset-${number}.typ",
+        //   [Source auf GitHub],
+        // )
         #block(above: 4pt, line(length: 100%, stroke: 0.5pt))
       ],
     )
     #set par(leading: 0.55em, justify: true)
     #set text(
-      font: "Computer Modern",
+      font: "New Computer Modern",
       size: 10pt,
       lang: "de",
     )
