@@ -1,17 +1,20 @@
 #let ex-counter = counter("exercise")
-#let exercise(points, body) = block(spacing: 0.65em)[
-  *Übung #context ex-counter.display()* (#points Punkte).
-  #body
-  #ex-counter.step(level: 2)
-]
+#let exercise(points, body) = block(spacing: 0.65em, {
+  grid(
+    columns: (auto, 1fr),
+    column-gutter: 1em,
+    align: top,
+    context [#ex-counter.display().], [#body \ #h(1fr) (#points Punkte)],
+  )
+  ex-counter.step(level: 1)
+})
 
 #let scr(it) = text(features: ("ss01",), box($cal(it)$))
 
 #let problemset(number) = {
   doc => [
-    #context ex-counter.update((int(number), 1))
+    #context ex-counter.update(1)
     #set page(
-      numbering: "1",
       margin: (
         top: 3cm,
         bottom: 1.5cm,
@@ -19,8 +22,8 @@
         inside: 2.0cm,
       ),
       header: [
-        Stochastik I #h(1fr) Michael van Straten \ *Lösungen*: #number.
-        Übungsblatt \
+        Stochastik I #h(1fr) Michael van Straten, Jonas Schimko \
+        *Lösungen*: #number. Übungsblatt \
         #block(above: 4pt, line(length: 100%, stroke: 0.5pt))
       ],
     )
@@ -28,10 +31,9 @@
     #set text(
       font: "New Computer Modern",
       size: 10pt,
-      number-type: "old-style",
       lang: "de",
     )
-    #set enum(numbering: "a)", indent: 1em)
+    #set enum(numbering: "a).i)", indent: 1em)
     #set math.mat(delim: "(")
     #show heading: set block(above: 1.4em, below: 1em)
     #show sym.lt.eq: $lt.eq.slant$
