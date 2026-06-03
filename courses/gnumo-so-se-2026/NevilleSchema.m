@@ -1,4 +1,4 @@
-function val = NevilleSchema(x,y,z)
+function retval = NevilleSchema (x,y,z)
     n = numel(x) - 1;
     P = diag(y);
     for l = 1:n
@@ -8,6 +8,6 @@ function val = NevilleSchema(x,y,z)
                 / (x(k+l) - x(k));
         end
     end
-    disp(P);
-    val = P(1, n+1);
+    # disp(P);
+    retval = P(1, n+1);
 end
