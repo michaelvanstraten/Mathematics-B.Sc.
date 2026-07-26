@@ -1,4 +1,4 @@
-function retval = NumDeriv (f, point, StepSize, order, q, mode)
+function retval = NumDeriv(f, point, StepSize, order, q, mode)
   switch mode
     case "right"
       retval = (f(point + StepSize) - f(point)) / StepSize;
@@ -9,5 +9,5 @@ function retval = NumDeriv (f, point, StepSize, order, q, mode)
     case "extrapolation"
       h = StepSize .* q .^ (1:order);
       retval = NevilleSchema(h, (f(point + h) - f(point)) ./ h, 0);
-  endswitch
-endfunction
+  end
+end
