@@ -49,6 +49,11 @@
                   nixfmt.enable = true;
                   latexindent = {
                     enable = true;
+                    # git-hooks.nix builds this with the deprecated `texlive.combine`
+                    package = pkgs.texliveSmall.withPackages (ps: [
+                      ps.scheme-basic
+                      ps.latexindent
+                    ]);
                     settings = {
                       flags = "--local --silent --modifylinebreak --overwriteIfDifferent";
                     };
@@ -71,8 +76,7 @@
 
             devShells.default = pkgs.mkShell {
               inherit (self.checks.${system}.git-hooks) shellHook;
-              packages = [
-                self.checks.${system}.git-hooks.enabledPackages
+              packages = self.checks.${system}.git-hooks.enabledPackages ++ [
                 pkgs.typst
                 pkgs.octaveFull
               ];

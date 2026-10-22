@@ -115,14 +115,14 @@
   + Zeigen Sie, dass die Ereignisse $(A_p)_(p in bold(P))$ unabhängig unter
     $PP_s$ sind.
 
-  + Berechnen Sie $PP(sect.big_(p in bold(P)) A_p^c)$ und folgern Sie die
+  + Berechnen Sie $PP(inter.big_(p in bold(P)) A_p^c)$ und folgern Sie die
     Eulersche Formel
     $
       1 / zeta(s) = product_(p in bold(P)) (1 - 1 / p^s).
     $
 
   + Zeigen Sie: Die Wahrscheinlichkeit des Ereignisses
-    $sect.big_(m in NN without {1}) A_(m^2)^c$, dass ein zufällig ausgewähltes
+    $inter.big_(m in NN without {1}) A_(m^2)^c$, dass ein zufällig ausgewähltes
     $n$ durch keine Quadratzahl außer $1$ teilbar ist, beträgt $1 \/ zeta(2s)$.
 ]
 

@@ -4,8 +4,8 @@
 
 #aufgabe[
   Sei $G$ eine Gruppe und $R$ ein kommutativer Ring. Wir betrachten die direkte
-  Summe $R[G] := plus.circle.big_(g in G) g R$. Das heißt Elemente von $R[G]$
-  sind von der Form $sum_(g in G) a_g g$ mit $a_g in R$ und nur endlich vielen
+  Summe $R[G] := plus.o.big_(g in G) g R$. Das heißt Elemente von $R[G]$ sind
+  von der Form $sum_(g in G) a_g g$ mit $a_g in R$ und nur endlich vielen
   $a_g eq.not 0$. Wir definieren auf $R[G]$ das Produkt
   $
     (sum_(g in G) a_g g) dot.c (sum_(g in G) a'_g g) := sum_(g in G) (sum_(h in G) a_h dot.c a'_(h^(-1) g)) g.

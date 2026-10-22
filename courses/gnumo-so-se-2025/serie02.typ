@@ -129,7 +129,7 @@ für die volle Punktzahl!
   $(q_(E_1), q_(E_2), q_(E_3))$ zu $(L_1, L_2, L_3)$.
 
 + Es seien $T_1$ und $T_2$ zwei Dreiecke mit einer gemeinsamen Kante
-  $E = partial T_1 sect partial T_2$ und sei $q_E$ die Basisfunktion zur Kante
+  $E = partial T_1 inter partial T_2$ und sei $q_E$ die Basisfunktion zur Kante
   $E$, die eingeschränkt auf $T_1$ bzw. $T_2$ die duale Basisfunktion aus (a)
   ist. Beweisen Sie die Stetigkeit der Normalenkomponente $q_E dot nu_E$.
 

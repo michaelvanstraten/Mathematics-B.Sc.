@@ -60,15 +60,15 @@ $
 $
 Die Abbildung $f$ ist offensichtlich $C^infinity$. Für $(r,alpha) in U$ gilt
 $
-  diff_r f(r,alpha) = (cos(alpha), sin(alpha), 0)^T, quad
-  diff_alpha f(r,alpha) = (-r sin(alpha), r cos(alpha), 1)^T.
+  partial_r f(r,alpha) = (cos(alpha), sin(alpha), 0)^T, quad
+  partial_alpha f(r,alpha) = (-r sin(alpha), r cos(alpha), 1)^T.
 $
 Ihr Kreuzprodukt ist
 $
-  diff_r f times diff_alpha f = (sin(alpha), -cos(alpha), r)^T != 0,
+  partial_r f times partial_alpha f = (sin(alpha), -cos(alpha), r)^T != 0,
 $
-sodass ${diff_r f, diff_alpha f}$ linear unabhängig ist. Damit hat die totale
-Ableitung $T_(r,alpha) f$ vollen Rang $2$ und $f$ ist ein Immersion.
+sodass ${partial_r f, partial_alpha f}$ linear unabhängig ist. Damit hat die
+totale Ableitung $T_(r,alpha) f$ vollen Rang $2$ und $f$ ist ein Immersion.
 
 Seien nun $(r_1,alpha_1),(r_2,alpha_2) in U$ mit
 $f(r_1,alpha_1)=f(r_2,alpha_2)$. Aus der dritten Koordinate folgt

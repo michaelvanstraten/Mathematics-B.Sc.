@@ -109,8 +109,9 @@
   $F_epsilon subset.eq A subset.eq U_epsilon$ und
   $beta_d (U_epsilon without F_epsilon) lt.eq epsilon$ gegeben.
 
-  Für $epsilon_n = 1 slash n$ setze $B := sect.big_(n=1)^infinity U_(1 slash n)$
-  und $C := union.big_(n=1)^infinity F_(1 slash n)$.
+  Für $epsilon_n = 1 slash n$ setze
+  $B := inter.big_(n=1)^infinity U_(1 slash n)$ und
+  $C := union.big_(n=1)^infinity F_(1 slash n)$.
 
   Dann gilt $C subset.eq A subset.eq B$, und da
   $beta_d (U_(1 slash n) without F_(1 slash n)) -> 0$ für $n -> infinity$, folgt

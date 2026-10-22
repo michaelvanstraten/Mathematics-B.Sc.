@@ -5,8 +5,8 @@
 }:
 {
   pset,
-  texlive ? pkgs.texlive.combine {
-    inherit (pkgs.texlive)
+  texlive ? pkgs.texliveSmall.withPackages (
+    pkgs: with pkgs; [
       scheme-basic
       # Additional packages
       babel-german
@@ -23,8 +23,8 @@
       thmtools
       xpatch
       zref
-      ;
-  },
+    ]
+  ),
   outputFilePattern,
   ...
 }@args:

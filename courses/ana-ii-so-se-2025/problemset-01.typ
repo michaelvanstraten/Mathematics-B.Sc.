@@ -71,7 +71,7 @@ $
 + *Linke Seite:*
   $
     norm(x)_(l^1)
-    = angle.l abs(x), 1_(RR^n) angle.r
+    = chevron.l abs(x), 1_(RR^n) chevron.r
     <= norm(x)_(l^2) dot norm(1_(RR^n))_(l^2)
     = sqrt(n) dot norm(x)_(l^2),
   $

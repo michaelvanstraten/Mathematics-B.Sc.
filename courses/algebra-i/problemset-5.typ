@@ -55,7 +55,7 @@
   Zudem folgt, dass $"Aut"(ZZ slash 11 ZZ)$ zyklisch ist, da für
   $phi in "Aut"(ZZ slash 11 ZZ)$ mit $phi([1]) = [2]$ gilt
   $
-    angle.l phi([1]) angle.r = ZZ slash 11 ZZ.
+    chevron.l phi([1]) chevron.r = ZZ slash 11 ZZ.
   $
   Diese zyklische Gruppe der Ordnung $10$ ist allerdings isomorph zu
   $ZZ slash 10 ZZ$.
@@ -93,11 +93,11 @@
 
     (i) $H$ ist eine $p$-Sylowgruppe in $G$.
 
-    (ii) $H sect N$ ist eine $p$-Sylowgruppe in $N$, und $pi(H)$ ist eine
+    (ii) $H inter N$ ist eine $p$-Sylowgruppe in $N$, und $pi(H)$ ist eine
     $p$-Sylowgruppe in $G slash N$.
 
   + Geben Sie ein Beispiel für $G$, $H$ und eine (nicht normale) Untergruppe
-    $U lt.eq G$ an, sodass $H$ eine $p$-Sylowgruppe in $G$, aber $H sect U$
+    $U lt.eq G$ an, sodass $H$ eine $p$-Sylowgruppe in $G$, aber $H inter U$
     keine $p$-Sylowgruppe in $U$ ist.
 ]
 
@@ -110,21 +110,21 @@
 
   Für jede Untergruppe $K lt.eq G$ gilt
   $
-    abs(K) = abs(K sect N) dot abs(pi(K)).
+    abs(K) = abs(K inter N) dot abs(pi(K)).
   $
 
   *Beweis.* Die Einschränkung $pi|_K : K -> pi(K)$ ist ein surjektiver
   Homomorphismus mit Kern
   $
-    ker(pi|_K) = K sect N.
+    ker(pi|_K) = K inter N.
   $
   Nach dem Homomorphiesatz gilt
   $
-    K slash (K sect N) tilde.equiv pi(K),
+    K slash (K inter N) tilde.equiv pi(K),
   $
   also
   $
-    abs(K) = abs(K sect N) dot abs(pi(K)).
+    abs(K) = abs(K inter N) dot abs(pi(K)).
   $
   #h(1fr) $qed$
 
@@ -150,21 +150,21 @@
   $
   Setze
   $
-    abs(H sect N) = p^alpha, quad quad abs(pi(H)) = p^beta
+    abs(H inter N) = p^alpha, quad quad abs(pi(H)) = p^beta
   $
   mit $alpha, beta gt.eq 0$. Beide sind $p$-Gruppen (Schnitt und Bild einer
   $p$-Gruppe).
 
   Nach dem Lemma gilt
   $
-    abs(H) = abs(H sect N) dot abs(pi(H)) = p^alpha p^beta = p^(alpha + beta).
+    abs(H) = abs(H inter N) dot abs(pi(H)) = p^alpha p^beta = p^(alpha + beta).
   $
   Da $abs(H) = p^a$, folgt
   $
     alpha + beta = a. #h(1em) (2)
   $
 
-  Andererseits gilt $H sect N lt.eq N$ und $pi(H) lt.eq G slash N$, also
+  Andererseits gilt $H inter N lt.eq N$ und $pi(H) lt.eq G slash N$, also
   $
     alpha lt.eq v_p (abs(N)) = b, quad quad beta lt.eq v_p (abs(G slash N)) = c. #h(1em) (3)
   $
@@ -179,7 +179,7 @@
     alpha = b, quad quad beta = c.
   $
 
-  Also ist $abs(H sect N) = p^b = p^(v_p (abs(N)))$, somit ist $H sect N$ eine
+  Also ist $abs(H inter N) = p^b = p^(v_p (abs(N)))$, somit ist $H inter N$ eine
   $p$-Sylowgruppe von $N$.
 
   Ebenso ist $abs(pi(H)) = p^c = p^(v_p (abs(G slash N)))$, also ist $pi(H)$
@@ -193,18 +193,18 @@
 
   Umgekehrt nehmen wir an, dass
 
-  - $H sect N$ eine $p$-Sylowgruppe von $N$ ist, und
+  - $H inter N$ eine $p$-Sylowgruppe von $N$ ist, und
   - $pi(H)$ eine $p$-Sylowgruppe von $G slash N$ ist.
 
   Dann gilt
   $
-    abs(H sect N) = p^b, quad quad abs(pi(H)) = p^c,
+    abs(H inter N) = p^b, quad quad abs(pi(H)) = p^c,
   $
   wobei wieder $b = v_p (abs(N))$ und $c = v_p (abs(G slash N))$.
 
   Nach dem Lemma gilt
   $
-    abs(H) = abs(H sect N) dot abs(pi(H)) = p^b p^c = p^(b + c).
+    abs(H) = abs(H inter N) dot abs(pi(H)) = p^b p^c = p^(b + c).
   $
   Mit (1) ist $b + c = a = v_p (abs(G))$. Also
   $
@@ -225,17 +225,17 @@
 
   Sei
   $
-    H = angle.l (1, 2) angle.r, quad quad U = angle.l (1, 3) angle.r.
+    H = chevron.l (1, 2) chevron.r, quad quad U = chevron.l (1, 3) chevron.r.
   $
 
   Dann gilt:
 
   - $abs(H) = 2$, also ist $H$ eine $2$-Sylowgruppe von $G$.
   - $U$ ist eine Untergruppe der Ordnung $2$, also nicht normal in $S_3$.
-  - $H sect U = {e}$, also von Ordnung $1$.
+  - $H inter U = {e}$, also von Ordnung $1$.
 
   Aber in $U$ gilt $abs(U) = 2$, also muss jede $2$-Sylowgruppe von $U$ Ordnung
-  $2$ haben. Daher ist $H sect U$ (von Ordnung $1$) *keine* $2$-Sylowgruppe von
+  $2$ haben. Daher ist $H inter U$ (von Ordnung $1$) *keine* $2$-Sylowgruppe von
   $U$.
 
   Dies liefert das gewünschte Beispiel, bei dem $U$ nicht normal ist und die
@@ -245,7 +245,7 @@
 
 #aufgabe[
   + Sei $G$ eine Gruppe, und seien Normalteiler $P, Q triangle.small.l G$
-    gegeben mit $P sect Q = {e}$ und $P dot.c Q = G$. Zeigen Sie, dass gilt:
+    gegeben mit $P inter Q = {e}$ und $P dot.c Q = G$. Zeigen Sie, dass gilt:
     $G tilde.equiv P times Q$.
 
   + Ermitteln Sie bis auf Isomorphie alle Gruppen, die das Geburtsjahr von Otto

@@ -14,14 +14,14 @@ flake-utils.lib.eachDefaultSystem (
       "internships/spring-break-2024" = buildLatexmkProject {
         name = "internships-spring-break-2024";
         buildInputs = [
-          (pkgs.texlive.combine {
-            inherit (pkgs.texlive)
+          (pkgs.texliveSmall.withPackages (
+            pkgs: with pkgs; [
               scheme-basic
               enumitem
               isodate
               substr
-              ;
-          })
+            ]
+          ))
         ];
         src = lib.fileset.toSource {
           root = ./.;

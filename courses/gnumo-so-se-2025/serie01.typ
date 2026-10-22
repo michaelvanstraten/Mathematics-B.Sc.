@@ -5,19 +5,19 @@
 
 == Aufgabe A1.1 (Gruppenabgabe) #h(1fr) _(6 Punkte)_
 
-Für alle $a, b in KK^n$ sei $a times.circle b := a b^H in KK^(n times n)$ und
+Für alle $a, b in KK^n$ sei $a times.o b := a b^H in KK^(n times n)$ und
 $a dot b = a^H b in KK$.
 
 + Zeigen Sie für zwei Vektoren $a, b in KK^n$ und die $n$-dimensionale
   Einheitsmatrix $I_n$ folgende Formel für die Determinante $det(
     I_n - a
-    times.circle b
+    times.o b
   ) = 1 - overline(a dot b)$.
 
-+ Folgern Sie eine Formel für $(I_n - a times.circle b)^(-1)$ sofern $a dot b !=
++ Folgern Sie eine Formel für $(I_n - a times.o b)^(-1)$ sofern $a dot b !=
   1$.
 
-+ Erweitern Sie die Formeln aus (a)-(b) für $A - b times.circle c$ wobei $A in
++ Erweitern Sie die Formeln aus (a)-(b) für $A - b times.o c$ wobei $A in
   KK^(n times n)$ eine reguläre Matrix und $b, c in KK^n$ Vektoren sind.
 
 === _Beweis_
@@ -31,8 +31,8 @@ $a dot b = a^H b in KK$.
                    & = det(mat(I - a b^H, a; 0, 1) mat(1, 0; b^H, I_n)) \
                    & = det(mat(I_n, a; b^H, I_n)) \
                    & = I - b^H a \
-                   & = I - angle.l b, a angle.r_"Standard" \
-                   & = I - overline(angle.l a\, b angle.r)_"Standard" \
+                   & = I - chevron.l b, a chevron.r_"Standard" \
+                   & = I - overline(chevron.l a\, b chevron.r)_"Standard" \
                    & = I - overline(a dot b) \
   $
 
@@ -47,16 +47,16 @@ $a dot b = a^H b in KK$.
 
   *Inverse:* \ Sei $x, y in KK^n$, sodass gilt
   $
-    (A - b times.circle c)x = y.
+    (A - b times.o c)x = y.
   $
 
   Via algebraischer Umformung folgt:
 
   $
-        & A x - b times.circle c x && = y \
-    <=> & A x                      && = y + b times.circle c x \
-    <=> & x                        && = A^(-1) y + A^(-1) b times.circle c x \
-        &                          && = A^(-1) y + A^(-1) b underbrace(c^H x, =: s) \
+        & A x - b times.o c x && = y \
+    <=> & A x                 && = y + b times.o c x \
+    <=> & x                   && = A^(-1) y + A^(-1) b times.o c x \
+        &                     && = A^(-1) y + A^(-1) b underbrace(c^H x, =: s) \
   $
 
   Bezeichnen wir $s in KK$ und stellen nun nach $s$ um, so folgt

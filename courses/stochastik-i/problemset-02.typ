@@ -215,7 +215,7 @@ erhalten, und mit $A_2$ das Ereignis, mehr Jerry- als Tom-Figuren zu erhalten.
 
   + Formalisieren Sie die Ereignisse $A_1$ „Pfad geht durch den Punkt $(1, 0)$"
     und $A_2$ „Pfad geht durch den Punkt $(0, 1)$, liegt aber nicht oberhalb der
-    Diagonalen" in $Omega_2$. Weisen Sie $A_1 sect A_2 = emptyset$ und mit
+    Diagonalen" in $Omega_2$. Weisen Sie $A_1 inter A_2 = emptyset$ und mit
     geeignetem Spiegelungsargument $|A_1| = |A_2|$ nach.
 
   + Schließen Sie darauf, dass die gesuchte Wahrscheinlichkeit

@@ -18,7 +18,7 @@
     Hierbei heißen $k in ZZ$ die *Stufe* und $n in ZZ^d$ der *Index* von
     $W_(k comma n)$. Zeigen Sie, dass
     $
-      scr(B)(RR^d) = angle.l scr(D)_d angle.r_sigma.
+      scr(B)(RR^d) = chevron.l scr(D)_d chevron.r_sigma.
     $
 
   + Zeigen Sie, dass für alle $k in ZZ$ und $n in ZZ^d$ gilt
@@ -55,7 +55,7 @@
   $
   nach $Sigma$3.
 
-  Somit folgt $scr(B)(RR^d) = angle.l scr(D)_d angle.r_sigma$.
+  Somit folgt $scr(B)(RR^d) = chevron.l scr(D)_d chevron.r_sigma$.
 
 + Der Einheitsquader lässt sich für jedes Level $k$ als disjunkte Vereinigung
   aus endlich vielen Elementen in $scr(D)_d$ darstellen.
@@ -126,44 +126,45 @@
     A_4 := {[0 comma a) : a in (0 comma infinity)}.
   $
 
-  *Wir zeigen nun, dass $angle.l A_1 angle.r_(sigma) = angle.l A_2
-  angle.r_(sigma) = angle.l A_3 angle.r_(sigma) = angle.l A_4 angle.r_(sigma)$.*
+  *Wir zeigen nun, dass $chevron.l A_1 chevron.r_(sigma) = chevron.l A_2
+  chevron.r_(sigma) = chevron.l A_3 chevron.r_(sigma) = chevron.l A_4 chevron.r_(sigma)$.*
 
   Da $[a, infinity) in A_1$ für alle $a in [0, infinity]$ ist, muss
-  $[0, a) in angle.l A_1 angle.r_(sigma)$ für alle $a in (0, infinity)$ sein
-  nach $Sigma 2$, also $angle.l A_4 angle.r subset.eq angle.l A_1 angle.r$. Dass
-  $angle.l A_1 angle.r subset.eq angle.l A_4 angle.r$ folgt mit dem gleichen
-  Argument, für welches zusätzlich auch die Äquivalenz von $A_3$ und $A_2$
-  folgt.
+  $[0, a) in chevron.l A_1 chevron.r_(sigma)$ für alle $a in (0, infinity)$ sein
+  nach $Sigma 2$, also
+  $chevron.l A_4 chevron.r subset.eq chevron.l A_1 chevron.r$. Dass
+  $chevron.l A_1 chevron.r subset.eq chevron.l A_4 chevron.r$ folgt mit dem
+  gleichen Argument, für welches zusätzlich auch die Äquivalenz von $A_3$ und
+  $A_2$ folgt.
 
   Wählen wir $a = 0$, so folgt, dass $[0, infinity] without [0, infinity) =
-  {infinity} in angle.l A_1 angle.r_(sigma)$ sein muss. Somit folgt, dass
-  $angle.l A_1 angle.r_(sigma) subset.eq angle.l A_2 angle.r_(sigma)$, da man
-  für jede Menge in $A_1$ eine Folge in $A_2$ mit dessen Grenzwert finden kann
-  (hinsichtlich endlicher Vereinigung). Mit dem gleichen Argument folgt die
+  {infinity} in chevron.l A_1 chevron.r_(sigma)$ sein muss. Somit folgt, dass
+  $chevron.l A_1 chevron.r_(sigma) subset.eq chevron.l A_2 chevron.r_(sigma)$,
+  da man für jede Menge in $A_1$ eine Folge in $A_2$ mit dessen Grenzwert finden
+  kann (hinsichtlich endlicher Vereinigung). Mit dem gleichen Argument folgt die
   Inklusion der sigma-Algebra generiert von $A_4$ in $A_3$.
 
-  Wir erhalten $angle.l A_1 angle.r_(sigma) subset.eq angle.l A_2
-  angle.r_(sigma) = angle.l A_3 angle.r_(sigma) subset.eq angle.l A_4
-  angle.r_(sigma) = angle.l A_1 angle.r_(sigma)$.
+  Wir erhalten $chevron.l A_1 chevron.r_(sigma) subset.eq chevron.l A_2
+  chevron.r_(sigma) = chevron.l A_3 chevron.r_(sigma) subset.eq chevron.l A_4
+  chevron.r_(sigma) = chevron.l A_1 chevron.r_(sigma)$.
 
-  *Wir zeigen nun, dass $scr(B)([0, infinity]) subset.eq angle.l A_1
-  angle.r_(sigma)$.*
+  *Wir zeigen nun, dass $scr(B)([0, infinity]) subset.eq chevron.l A_1
+  chevron.r_(sigma)$.*
 
   Jedes offene Intervall in $[0, infinity]$ lässt sich durch ein Element in
-  $angle.l A_1 angle.r_(sigma)$ darstellen. Man nehme sich hierfür ein Intervall
-  $(a, b) subset.eq [0,infinity]$, so folgt, dass
-  $(a, infinity] in angle.l A_1 angle.r_(sigma)$ und dass
-  $[0, b) in angle.l A_1 angle.r_(sigma)$ und somit
-  $[0, b) inter (a, infinity] = (a, b) in angle.l A_1 angle.r_(sigma)$. Sei
+  $chevron.l A_1 chevron.r_(sigma)$ darstellen. Man nehme sich hierfür ein
+  Intervall $(a, b) subset.eq [0,infinity]$, so folgt, dass
+  $(a, infinity] in chevron.l A_1 chevron.r_(sigma)$ und dass
+  $[0, b) in chevron.l A_1 chevron.r_(sigma)$ und somit
+  $[0, b) inter (a, infinity] = (a, b) in chevron.l A_1 chevron.r_(sigma)$. Sei
   $U subset.eq scr(B)([0, infinity])$ eine offene Menge in der
   Borel-sigma-Algebra. Für $x in U$ existiert ein $epsilon > 0$, sodass
   $(x - epsilon, x + epsilon) subset.eq U$. Für jedes $epsilon$ existiert zudem
   ein $epsilon >= q > 0 in QQ$, sodass $x plus.minus q in [0,infinity] inter QQ$
-  mit $(x - q, x +q) in angle.l A_1 angle.r_(sigma)$. Nehmen wir nun die
+  mit $(x - q, x +q) in chevron.l A_1 chevron.r_(sigma)$. Nehmen wir nun die
   abzählbare Vereinigung über alle dieser Intervalle in der sigma-Algebra
-  erzeugt von $A_1$, so folgt $U in angle.l A_1 angle.r_(sigma)$ mit $Sigma 3$.
-  Dass $angle.l A_1 angle.r_(sigma) subset.eq
+  erzeugt von $A_1$, so folgt $U in chevron.l A_1 chevron.r_(sigma)$ mit
+  $Sigma 3$. Dass $chevron.l A_1 chevron.r_(sigma) subset.eq
   scr(B)([0, infinity])$ ist relativ leicht zu zeigen und diese Technik wurde
   auf diesem Übungsblatt bereits zur Genüge bewiesen.
 
